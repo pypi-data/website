@@ -11,8 +11,8 @@
 //     // providerImportSource: "@mdx-js/react",
 //   },
 // })
-const basePath = process.env.BASE_PATH;
-const assetPrefix = process.env.ASSET_PATH;
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PATH;
 
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],

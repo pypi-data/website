@@ -25,13 +25,15 @@ function getInspectorLink(p: PackageWithIndex): string {
   return `https://inspector.pypi.io/project/${p.package.project_name}/${p.package.project_version}${url.pathname}`;
 }
 
+const ASSET_PATH = process.env.NEXT_PUBLIC_ASSET_PATH || '';
+
 export default function ProjectInfo({name}: {name: string}) {
   const first_char = Array.from(name)[0];
   const {
     data,
     error,
     isLoading
-  } = useSWRImmutable(`/data/packages/${first_char}/${name}.json`);
+  } = useSWRImmutable(`${ASSET_PATH}/data/packages/${first_char}/${name}.json`);
   if (isLoading) {
     return <p>Loading</p>
   }
