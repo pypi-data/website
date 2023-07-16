@@ -57,8 +57,7 @@ jobs:
 
           ${{ github.workspace }}/toolchain/pypi-data-toolchain static-site \
             --content-directory ${{ github.workspace }}/public/data/ \
-            --reload-from ${{ github.workspace }}/.cache/data.json \
-            --dev
+            --reload-from ${{ github.workspace }}/.cache/data.json
 
       - name: Setup Pages
         id: setup-pages
