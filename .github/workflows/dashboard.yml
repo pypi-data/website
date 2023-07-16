@@ -49,7 +49,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         name: Build data
         run: |
-          mkdir ${{ github.workspace }}/.cache/
+          mkdir -p ${{ github.workspace }}/.cache/
 
           ${{ github.workspace }}/toolchain/pypi-data-toolchain static-site \
             --content-directory ${{ github.workspace }}/public/data/ \
