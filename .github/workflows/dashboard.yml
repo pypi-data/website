@@ -75,13 +75,12 @@ jobs:
           tar \
           --dereference --hard-dereference \
           --directory "$INPUT_PATH" \
-          -czf "$RUNNER_TEMP/artifact.tar.gz" \
+          -cf "$RUNNER_TEMP/artifact.tar" \
           --exclude=.git \
           --exclude=.github \
           .
         env:
           INPUT_PATH: ${{ github.workspace }}/out/
-          GZIP: "-9"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -90,6 +89,7 @@ jobs:
           path: ${{ runner.temp }}/artifact.tar
           retention-days: "1"
           if-no-files-found: error
+          GZIP: "-9"
 
   deploy:
     needs: build
