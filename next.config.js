@@ -15,11 +15,11 @@ const base_path = process.env.BASE_PATH || "";
 
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  basePath: base_path === undefined ? base_path : "",
+  basePath: base_path !== undefined ? base_path : "",
   // experimental: {
   //   mdxRs: true,
   // },
   output: 'export',
 }
-const withMDX = require('@next/mdx')()
+const withMDX = require('@next/mdx')({extension: /\.mdx?$/})
 module.exports = withMDX(nextConfig)

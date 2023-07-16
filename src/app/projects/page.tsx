@@ -9,7 +9,7 @@ const totalPackages: number = packageList.total_packages;
 export default function ProjectsList() {
   return (
     <>
-      <article className="prose lg:prose-xl mb-3">
+      <article className="prose lg:prose-lg mb-3">
         <h1>Projects List</h1>
         <p>
           Due to time constraints this page is not done yet and only the first 1,000 projects are shown.

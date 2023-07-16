@@ -38,7 +38,7 @@ export default function Page({params}: { params: { name: string } }) {
   const project_info: ProjectInfo = data;
   return (
     <>
-      <article className="prose lg:prose-xl mb-3">
+      <article className="prose lg:prose-lg mb-3">
         <h1>{project_info.name}</h1>
         <p>
           {project_info.name} has {project_info.packages_with_indexes.length} packages.
