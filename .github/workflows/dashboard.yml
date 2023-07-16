@@ -1,0 +1,67 @@
+# On every push this script is executed
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * *'
+
+concurrency: dashboard
+
+name: Build and deploy GH Pages
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: robinraju/release-downloader@v1.8
+        with:
+          repository: "pypi-data/toolchain"
+          fileName: "pypi-data-toolchain.tar.gz"
+          extract: true
+          latest: true
+          out-file-path: "toolchain/"
+
+      - name: Generate token
+        id: generate_token
+        uses: pypi-data/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          mkdir ${{ github.workspace }}/dashboard/public/
+          ${{ github.workspace }}/toolchain/pypi-data-toolchain static-site \
+            --content-directory ${{ github.workspace }}/dashboard/public/ \
+            --templates ${{ github.workspace }}/dashboard/templates/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ${{ github.workspace }}/dashboard/public/
+        env:
+          GZIP: "-9"
+
+  deploy:
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
