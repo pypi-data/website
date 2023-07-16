@@ -82,7 +82,6 @@ jobs:
       - name: Build site
         run: npm run build
         env:
-          NODE_ENV: production
           NEXT_PUBLIC_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
           NEXT_PUBLIC_ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
 
