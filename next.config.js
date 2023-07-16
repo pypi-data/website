@@ -12,12 +12,12 @@
 //   },
 // })
 const basePath = process.env.BASE_PATH;
-const assetPath = process.env.ASSET_PATH;
+const assetPrefix = process.env.ASSET_PATH;
 
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   basePath,
-  assetPath,
+  assetPrefix,
   // experimental: {
   //   mdxRs: true,
   // },
