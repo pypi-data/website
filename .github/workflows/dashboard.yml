@@ -87,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: github-pages
-          path: ${{ runner.temp }}/artifact.tar.gz
+          path: ${{ runner.temp }}/artifact.tar
           retention-days: "1"
           if-no-files-found: error
 
