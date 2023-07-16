@@ -70,6 +70,7 @@ jobs:
         env:
           NODE_ENV: production
           BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
+          ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
 
       - name: Create artifact
         run: |
