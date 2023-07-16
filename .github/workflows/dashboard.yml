@@ -33,11 +33,27 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
+      - name: Get current date
+        id: current-date
+        run: |
+          echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .cache/data.json
+          key: data-${{ steps.current-date.outputs.date }}
+
       - env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
+          mkdir ${{ github.workspace }}/.cache/
+
           ${{ github.workspace }}/toolchain/pypi-data-toolchain static-site \
-            --content-directory ${{ github.workspace }}/public/data/
+            --content-directory ${{ github.workspace }}/public/data/ \
+            --output-directory ${{ github.workspace }}/out/ \
+            --reload-from ${{ github.workspace }}/.cache/data.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
