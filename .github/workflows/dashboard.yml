@@ -66,12 +66,26 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ${{ github.workspace }}/out/
+      - name: Create artifact
+        run: |
+          tar \
+          --dereference --hard-dereference \
+          --directory "$INPUT_PATH" \
+          -czf "$RUNNER_TEMP/artifact.tar.gz" \
+          --exclude=.git \
+          --exclude=.github \
+          .
         env:
+          INPUT_PATH: ${{ github.workspace }}/out/
           GZIP: "-9"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar.gz
+          retention-days: "1"
+          if-no-files-found: error
 
   deploy:
     needs: build
