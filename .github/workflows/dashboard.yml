@@ -54,38 +54,38 @@ jobs:
             --content-directory ${{ github.workspace }}/public/data/ \
             --output-directory ${{ github.workspace }}/out/ \
             --reload-from ${{ github.workspace }}/.cache/data.json
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Install deps
-        run: |
-          npm install
-
-      - name: Build site
-        run: npm run build
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ${{ github.workspace }}/out/
-        env:
-          GZIP: "-9"
-
-  deploy:
-    needs: build
-
-    permissions:
-      pages: write
-      id-token: write
-
-    # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+#
+#      - name: Setup Pages
+#        uses: actions/configure-pages@v3
+#
+#      - name: Install deps
+#        run: |
+#          npm install
+#
+#      - name: Build site
+#        run: npm run build
+#
+#      - name: Upload Pages artifact
+#        uses: actions/upload-pages-artifact@v1
+#        with:
+#          path: ${{ github.workspace }}/out/
+#        env:
+#          GZIP: "-9"
+#
+#  deploy:
+#    needs: build
+#
+#    permissions:
+#      pages: write
+#      id-token: write
+#
+#    # Deploy to the github-pages environment
+#    environment:
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
+#
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v2
