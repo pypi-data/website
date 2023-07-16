@@ -16,7 +16,7 @@ export default function ProjectsList() {
           There are {totalPackages} projects in total.
         </p>
         <p>
-          To visit a project use a direct URL, e.g so: <Link href={`/projects/django/`}>/projects/django</Link>
+          To visit a project use a direct URL, e.g so: <Link href={`/projects/view?name=django`}>/projects/view?name=django</Link>
         </p>
       </article>
       <div className="overflow-x-auto">
@@ -31,10 +31,12 @@ export default function ProjectsList() {
           {packages.map((p, idx) => {
             return (
               <tr key={idx}>
-                <td>{p}</td>
+                <th>
+                  <p><Link href={`/projects/view/?name=${p}`}>{p}</Link></p>
+                </th>
                 <td>
                   <button className="btn btn-info btn-xs">
-                    <Link href={`/projects/${p}/`}>View</Link>
+                    <Link href={`/projects/view/?name=${p}`}>View</Link>
                   </button>
                 </td>
               </tr>

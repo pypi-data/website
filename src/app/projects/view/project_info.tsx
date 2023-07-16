@@ -1,5 +1,6 @@
 'use client'
-import useSWR from 'swr'
+import useSWRImmutable from 'swr/immutable'
+import {useSearchParams} from 'next/navigation'
 import Timestamp from 'react-timestamp';
 
 type PackageWithIndex = {
@@ -19,19 +20,18 @@ type ProjectInfo = {
   packages_with_indexes: PackageWithIndex[]
 }
 
-function getInspectorLink(p: PackageWithIndex) : string {
+function getInspectorLink(p: PackageWithIndex): string {
   const url = new URL(p.package.url);
   return `https://inspector.pypi.io/project/${p.package.project_name}/${p.package.project_version}${url.pathname}`;
 }
 
-export default function Page({params}: { params: { name: string } }) {
-  const name = params.name[0]; // Why do we need to do this??
+export default function ProjectInfo({name}: {name: string}) {
   const first_char = Array.from(name)[0];
   const {
     data,
     error,
     isLoading
-  } = useSWR(`/data/packages/${first_char}/${name}.json`);
+  } = useSWRImmutable(`/data/packages/${first_char}/${name}.json`);
   if (isLoading) {
     return <p>Loading</p>
   }
