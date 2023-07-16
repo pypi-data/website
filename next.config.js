@@ -11,11 +11,11 @@
 //     // providerImportSource: "@mdx-js/react",
 //   },
 // })
-const base_path = process.env.BASE_PATH || "";
+const basePath = process.env.BASE_PATH;
 
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  basePath: base_path !== undefined ? base_path : "",
+  basePath,
   // experimental: {
   //   mdxRs: true,
   // },
