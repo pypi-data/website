@@ -57,6 +57,7 @@ jobs:
             --reload-from ${{ github.workspace }}/.cache/data.json
 
       - name: Setup Pages
+        id: setup-pages
         uses: actions/configure-pages@v3
 
       - name: Install deps
@@ -65,6 +66,9 @@ jobs:
 
       - name: Build site
         run: npm run build
+        env:
+          NODE_ENV: production
+          BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
 
       - name: Create artifact
         run: |
