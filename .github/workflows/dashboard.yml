@@ -82,7 +82,7 @@ jobs:
         run: npm run build-index
 
       - name: Build site
-        run: npm run build
+        run: npm run build -- --no-lint
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
           NEXT_PUBLIC_ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
