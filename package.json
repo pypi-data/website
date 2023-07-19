@@ -9,7 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build-index": "ts-node scripts/build-index.ts public/data/pages.json public/data/fuse-index.json"
   },
   "dependencies": {
     "@mdx-js/loader": "^2.3.0",
@@ -21,14 +22,19 @@
     "daisyui": "^3.2.1",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
+    "fuse.js": "^6.6.2",
+    "lodash.samplesize": "^4.2.0",
     "next": "13.4.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-timestamp": "^6.0.0",
     "swr": "^2.2.0",
-    "typescript": "5.1.6"
+    "ts-node": "^10.9.1",
+    "typescript": "5.1.6",
+    "use-debounce": "^9.0.4"
   },
   "devDependencies": {
+    "@types/lodash.samplesize": "^4.2.7",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.26",
     "tailwindcss": "^3.3.3"

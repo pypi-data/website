@@ -1,6 +1,5 @@
 'use client'
 import useSWRImmutable from 'swr/immutable'
-import {useSearchParams} from 'next/navigation'
 import Timestamp from 'react-timestamp';
 
 type PackageWithIndex = {
@@ -40,7 +39,7 @@ export default function ProjectInfo({name}: {name: string}) {
   const project_info: ProjectInfo = data;
   return (
     <>
-      <article className="prose lg:prose-lg mb-3">
+      <article className="prose lg:prose-md mb-3">
         <h1>{project_info.name}</h1>
         <p>
           {project_info.name} has {project_info.packages_with_indexes.length} packages.
