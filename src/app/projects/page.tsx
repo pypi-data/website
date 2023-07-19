@@ -10,13 +10,10 @@ import {useDebounce} from "use-debounce";
 import sampleSize from "lodash.samplesize";
 
 // @ts-ignore
-const {packages, json: indexJson}: {
-  packages: string[],
-  json: object
-} = fuseIndex;
-const idx: FuseIndex<string> = Fuse.parseIndex(indexJson);
-const fuse = new Fuse(packages, {
-  includeScore: true,
+const idx: FuseIndex<string> = Fuse.parseIndex(fuseIndex.json);
+// @ts-ignore
+const fuse = new Fuse(fuseIndex.packages, {
+  includeScore: false,
   threshold: 0.3,
   distance: 10,
   // ignoreLocation: true,
@@ -51,14 +48,16 @@ export default function ProjectsList() {
       return result.map(({item}) => item)
     } else if (debouncedSearch.length == 0 && isClient) {
       // Select 10 random packages
-      return sampleSize(packages, 10);
+      // @ts-ignore
+      return sampleSize(fuseIndex.packages, 10);
     }
     return []
   }, [debouncedSearch, isClient]);
 
   const randomName = useMemo(() => {
     if (isClient) {
-      return sampleSize(packages, 1)[0]
+      // @ts-ignore
+      return sampleSize(fuseIndex.packages, 1)[0]
     } else {
       return null
     }
@@ -82,7 +81,8 @@ export default function ProjectsList() {
           <button
             className="flex-shrink-0 ml-5 py-1 px-6 rounded btn"
             onClick={(e) => {
-              const randomName = sampleSize(packages, 1)[0];
+              // @ts-ignore
+              const randomName = sampleSize(fuseIndex.packages, 1)[0];
               router.push(`/projects/view?name=${randomName}`)
             }}
             type="button">
