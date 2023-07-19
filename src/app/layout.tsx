@@ -4,6 +4,7 @@ import {Inter} from 'next/font/google'
 import {SWRProvider} from './swr-provider'
 import NavBar from './navbar';
 import React from "react";
+import { Suspense } from 'react'
 
 const inter = Inter({subsets: ['latin']})
 
@@ -21,7 +22,9 @@ export default function RootLayout({children}: {
       <body className={inter.className}>
       <NavBar />
       <div className="container mx-auto">
+        <Suspense fallback={<></>}>
         {children}
+        </Suspense>
       </div>
       </body>
     </SWRProvider>
