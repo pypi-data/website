@@ -1,6 +1,4 @@
 'use client'
-// import packageList from '@/../public/data/pages.json';
-import fuseIndex from '@/../public/data/fuse-index.json';
 import Link from 'next/link';
 import {useSearchParams, useRouter, usePathname} from 'next/navigation'
 import {useEffect, useMemo, useState} from "react";
@@ -8,17 +6,9 @@ import Fuse from "fuse.js";
 import FuseIndex = Fuse.FuseIndex;
 import {useDebounce} from "use-debounce";
 import sampleSize from "lodash.samplesize";
+import useSWRImmutable from 'swr/immutable'
 
-// @ts-ignore
-const idx: FuseIndex<string> = Fuse.parseIndex(fuseIndex.json);
-// @ts-ignore
-const fuse = new Fuse(fuseIndex.packages, {
-  includeScore: false,
-  threshold: 0.3,
-  distance: 10,
-  // ignoreLocation: true,
-  useExtendedSearch: false
-}, idx);
+const ASSET_PATH = process.env.NEXT_PUBLIC_ASSET_PATH || '';
 
 export default function ProjectsList() {
   const router = useRouter()
@@ -28,6 +18,28 @@ export default function ProjectsList() {
   let [search, setSearch] = useState(searchParam);
   const [debouncedSearch] = useDebounce(search, 500);
   const [isClient, setIsClient] = useState(false)
+
+  const {
+    data,
+    error,
+    isLoading
+  } = useSWRImmutable(`${ASSET_PATH}/data/fuse-index.json`);
+
+  const fuse = useMemo(() => {
+    if (error || isLoading || data == null) {
+      return null
+    }
+    // @ts-ignore
+    const idx: FuseIndex<string> = Fuse.parseIndex(data.json);
+    // @ts-ignore
+    return new Fuse(data.packages, {
+      includeScore: false,
+      threshold: 0.3,
+      distance: 10,
+      // ignoreLocation: true,
+      useExtendedSearch: false
+    }, idx)
+  }, [data, error, isLoading]);
 
   useEffect(() => {
     setIsClient(true)
@@ -41,7 +53,7 @@ export default function ProjectsList() {
   }, [debouncedSearch, pathname, router, searchParams]);
 
   const searchResults = useMemo(() => {
-    if (debouncedSearch.length > 3) {
+    if (debouncedSearch.length > 3 && fuse) {
       console.time(`search ${debouncedSearch}`);
       let result = fuse.search(debouncedSearch, {limit: 50});
       console.timeEnd(`search ${debouncedSearch}`);
@@ -49,20 +61,38 @@ export default function ProjectsList() {
     } else if (debouncedSearch.length == 0 && isClient) {
       // Select 10 random packages
       // @ts-ignore
-      return sampleSize(fuseIndex.packages, 10);
+      return sampleSize(data && data.packages || [], 10);
     }
     return []
-  }, [debouncedSearch, isClient]);
+  }, [fuse, data, debouncedSearch, isClient]);
 
   const randomName = useMemo(() => {
-    if (isClient) {
+    if (isClient && data) {
       // @ts-ignore
-      return sampleSize(fuseIndex.packages, 1)[0]
+      return sampleSize(data.packages, 1)[0]
     } else {
       return null
     }
 
-  }, [isClient])
+  }, [data, isClient])
+
+  if (isLoading) {
+    return (
+      <span className="loading loading-spinner loading-lg"></span>
+    )
+  } else if (error) {
+    return (
+      <div className="alert alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             className="stroke-current shrink-0 h-6 w-6" fill="none"
+             viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span>Error! {error}</span>
+      </div>
+    )
+  }
 
   return (
     <>
@@ -82,7 +112,7 @@ export default function ProjectsList() {
             className="flex-shrink-0 ml-5 py-1 px-6 rounded btn"
             onClick={(e) => {
               // @ts-ignore
-              const randomName = sampleSize(fuseIndex.packages, 1)[0];
+              const randomName = sampleSize(data.packages, 1)[0];
               router.push(`/projects/view?name=${randomName}`)
             }}
             type="button">
