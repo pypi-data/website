@@ -12,7 +12,6 @@ const ASSET_PATH = process.env.NEXT_PUBLIC_ASSET_PATH || '';
 
 export default function ProjectsList() {
   const router = useRouter()
-  const pathname = usePathname()
   const searchParams = useSearchParams()!;
   const searchParam = searchParams.get('search') || '';
   let [search, setSearch] = useState(searchParam);
@@ -46,11 +45,14 @@ export default function ProjectsList() {
   }, [])
 
   useEffect(() => {
+    if (!debouncedSearch) {
+      return
+    }
     // @ts-ignore
     const params = new URLSearchParams(searchParams)
     params.set('search', debouncedSearch)
-    router.replace(pathname + '?' + params.toString());
-  }, [debouncedSearch, pathname, router, searchParams]);
+    router.replace(`/projects/?${params}`);
+  }, [debouncedSearch, router, searchParams]);
 
   const searchResults = useMemo(() => {
     if (debouncedSearch.length > 3 && fuse) {
@@ -89,7 +91,7 @@ export default function ProjectsList() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                 d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
         </svg>
-        <span>Error! {error}</span>
+        <span>Error loading search index! {error.toString()}</span>
       </div>
     )
   }
@@ -97,7 +99,7 @@ export default function ProjectsList() {
   return (
     <>
       <article className="prose lg:prose-md mb-3">
-        <h1>Projects List</h1>
+        <h1>Projects List <small>{data.packages.length} projects</small></h1>
       </article>
       <form className="w-full">
         <div className="flex items-center w-full">
