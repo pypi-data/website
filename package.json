@@ -21,7 +21,7 @@
     "byte-size": "^8.1.1",
     "daisyui": "^3.2.1",
     "date-fns": "^2.30.0",
-    "eslint": "8.45.0",
+    "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "fuse.js": "^6.6.2",
     "human-format": "^1.2.0",
