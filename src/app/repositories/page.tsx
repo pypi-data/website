@@ -3,9 +3,10 @@ import parseIso from 'date-fns/parseISO';
 import format from 'date-fns/format';
 import differenceInDays from 'date-fns/differenceInDays';
 import Link from "next/link";
+import fs from 'fs'
+import path from 'path'
 
-import allRepoData from '@/data/repositories_with_releases.json';
-
+const allRepoData = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/repositories_with_releases.json'), 'utf-8')) as RepoData[];
 
 export default async function RepositoriesList() {
   const data = await getData();
