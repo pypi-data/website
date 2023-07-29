@@ -96,9 +96,6 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
           NEXT_PUBLIC_ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
 
-      - name: Free space
-        run: df -h
-
       - name: Create artifact
         run: |
           tar \
@@ -110,6 +107,9 @@ jobs:
           .
         env:
           INPUT_PATH: ${{ github.workspace }}/out/
+
+      - name: Size
+        run: du -hs ${{ github.workspace }}/artifact.tar
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
