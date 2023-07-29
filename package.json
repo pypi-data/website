@@ -14,6 +14,7 @@
     "postinstall": "wget https://raw.githubusercontent.com/pypi-data/data/main/stats/repositories_with_releases.json -O src/data/repositories_with_releases.json"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "@mdx-js/loader": "^2.3.0",
     "@next/mdx": "^13.4.10",
     "@tailwindcss/typography": "^0.5.9",
@@ -23,11 +24,13 @@
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
     "fuse.js": "^6.6.2",
+    "human-format": "^1.2.0",
     "lodash.samplesize": "^4.2.0",
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-timestamp": "^6.0.0",
+    "recharts": "^2.7.2",
     "swr": "^2.2.0",
     "ts-node": "^10.9.1",
     "typescript": "5.1.6",
