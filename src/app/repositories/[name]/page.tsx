@@ -48,7 +48,7 @@ export default async function RepositoryDetail({params}: {
               </a>
             </td>
             <td>
-              <Link href={`/projects/view?name=${name}`} className="btn btn-small btn-ghost normal-case text-small" passHref={true}>{name}</Link>
+              <Link href={`/projects/view?name=${name}`} className="normal-case text-small" passHref={true}>View all releases</Link>
             </td>
             <td>{count}</td>
           </tr>
