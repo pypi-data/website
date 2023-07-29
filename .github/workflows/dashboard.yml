@@ -96,6 +96,9 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
           NEXT_PUBLIC_ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
 
+      - name: Free space
+        run: df -h
+
       - name: Create artifact
         run: |
           tar \
