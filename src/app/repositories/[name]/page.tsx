@@ -61,7 +61,7 @@ export default async function RepositoryDetail({params}: {
 
 export async function generateStaticParams() {
   const repos = await getData()
-  return repos.map((repo) => {
-    repo.name
-  })
+  return repos.map((repo) => ({
+    name: repo.name
+  }))
 }

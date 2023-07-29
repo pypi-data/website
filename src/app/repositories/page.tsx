@@ -4,6 +4,7 @@ import format from 'date-fns/format';
 import differenceInDays from 'date-fns/differenceInDays';
 import Link from "next/link";
 
+
 export default async function RepositoriesList() {
   const data = await getData()
   const repo_count = data.length;
@@ -75,7 +76,7 @@ export type RepoData = {
 }
 
 export async function getData(): Promise<RepoData[]> {
-  const res = await fetch('https://github.com/pypi-data/data/raw/main/stats/repositories.json')
+  const res = await fetch('https://raw.githubusercontent.com/pypi-data/data/main/stats/repositories_with_releases.json')
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary

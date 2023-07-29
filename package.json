@@ -10,7 +10,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build-index": "ts-node scripts/build-index.ts public/data/pages.json public/data/fuse-index.json"
+    "build-index": "ts-node scripts/build-index.ts public/data/pages.json public/data/fuse-index.json",
+    "postinstall": "patch-package",
+    "patch": "patch-package"
   },
   "dependencies": {
     "@mdx-js/loader": "^2.3.0",
@@ -33,12 +35,13 @@
     "use-debounce": "^9.0.4"
   },
   "devDependencies": {
+    "@types/byte-size": "^8.1.0",
+    "@types/lodash.samplesize": "^4.2.7",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
-    "@types/byte-size": "^8.1.0",
-    "@types/lodash.samplesize": "^4.2.7",
     "autoprefixer": "^10.4.14",
+    "patch-package": "^8.0.0",
     "postcss": "^8.4.26",
     "tailwindcss": "^3.3.3"
   },
