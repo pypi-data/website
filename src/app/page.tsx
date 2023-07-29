@@ -46,7 +46,7 @@ export interface StatsOverTimeStat {
 }
 
 
-export async function getData(): Promise<RepoStats> {
+async function getData(): Promise<RepoStats> {
     const res = await fetch('https://raw.githubusercontent.com/pypi-data/data/main/stats/totals.json')
 
     if (!res.ok) {
