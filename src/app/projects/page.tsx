@@ -99,7 +99,7 @@ export default function ProjectsList() {
   return (
     <>
       <article className="prose lg:prose-md mb-3">
-        <h1>Projects List <small>{data.packages.length} projects</small></h1>
+        <h1>Projects List <small>{data.packages.length.toLocaleString()} projects</small></h1>
       </article>
       <form className="w-full">
         <div className="flex items-center w-full">

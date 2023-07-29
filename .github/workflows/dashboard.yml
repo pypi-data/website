@@ -104,7 +104,7 @@ jobs:
           tar \
           --dereference --hard-dereference \
           --directory "$INPUT_PATH" \
-          -cf "$RUNNER_TEMP/artifact.tar" \
+          -cf "${{ github.workspace }}/artifact.tar" \
           --exclude=.git \
           --exclude=.github \
           .
@@ -117,7 +117,7 @@ jobs:
           GZIP: "-9"
         with:
           name: github-pages
-          path: ${{ runner.temp }}/artifact.tar
+          path: ${{ github.workspace }}/artifact.tar
           retention-days: "1"
           if-no-files-found: error
 
