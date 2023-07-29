@@ -29,7 +29,7 @@ export default async function RepositoryDetail({params}: {
           Link: <a href={repo.packages_url}>{repo.url}</a>
         </p>
       </article>
-      <table className="table-fixed">
+      <table className="table table-fixed">
         <thead>
         <tr>
           <th>Package</th>
