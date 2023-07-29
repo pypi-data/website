@@ -4,9 +4,11 @@ import format from 'date-fns/format';
 import differenceInDays from 'date-fns/differenceInDays';
 import Link from "next/link";
 
+import allRepoData from '@/data/repositories_with_releases.json';
+
 
 export default async function RepositoriesList() {
-  const data = await getData()
+  const data = await getData();
   const repo_count = data.length;
   const total_releases = data.reduce((acc, repo) => acc + repo.stats.total_packages, 0).toLocaleString(undefined, {minimumFractionDigits: 0});
   const total_size = data.reduce((acc, repo) => acc + repo.size, 0);
@@ -76,12 +78,13 @@ export type RepoData = {
 }
 
 export async function getData(): Promise<RepoData[]> {
-  const res = await fetch('https://raw.githubusercontent.com/pypi-data/data/main/stats/repositories_with_releases.json')
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
-
-  return res.json()
+  return allRepoData as RepoData[];
+  // const res = await fetch('https://raw.githubusercontent.com/pypi-data/data/main/stats/repositories_with_releases.json')
+  //
+  // if (!res.ok) {
+  //   // This will activate the closest `error.js` Error Boundary
+  //   throw new Error('Failed to fetch data')
+  // }
+  //
+  // return res.json()
 }
