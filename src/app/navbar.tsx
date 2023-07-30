@@ -1,18 +1,16 @@
-import Link from "next/link";
-
 export default function NavBar() {
-  return (
-    <div className="navbar bg-base-300 mb-5">
-      <Link href="/" className="btn btn-ghost normal-case text-xl" passHref={true}>PyPI Data</Link>
+    return (
+        <div className="navbar bg-base-300 mb-5">
+            <a role={"button"} href="/website/" className="btn btn-ghost normal-case text-xl">PyPI Data</a>
 
-      <Link href="/projects/" className="btn btn-ghost normal-case text-large" passHref={true}>All PyPI Projects</Link>
+            <a role={"button"} href="/website/projects/" className="btn btn-ghost normal-case text-large">All PyPI Projects</a>
 
-      <Link href="/repositories/" className="btn btn-ghost normal-case text-large"
-            passHref={true}>Repositories</Link>
+            <a role={"button"} href="/website/repositories/" className="btn btn-ghost normal-case text-large"
+            >Repositories</a>
 
-      <Link href="/datasets/" className="btn btn-ghost normal-case text-large" passHref={true}>Datasets</Link>
+            <a role={"button"} href="/website/datasets/" className="btn btn-ghost normal-case text-large">Datasets</a>
 
-      <Link href="/stats/" className="btn btn-ghost normal-case text-large" passHref={true}>Stats for nerds 🤓</Link>
-    </div>
-  )
+            <a role={"button"} href="/website/stats/" className="btn btn-ghost normal-case text-large">Stats for nerds 🤓</a>
+        </div>
+    )
 }

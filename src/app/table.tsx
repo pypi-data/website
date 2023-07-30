@@ -9,7 +9,13 @@ type Column = {
     type?: "string" | "number" | "bytes"
 }
 
-export default function Table({data, columns, initialLimit = 15}: { data: Record<string, string | number>[], columns: Column[], initialLimit: number }) {
+interface TableProps {
+    data: Record<string, string | number>[];
+    columns: Column[];
+    initialLimit?: number;
+}
+
+export default function Table({data, columns, initialLimit = 15}: TableProps) {
     const [expanded, setExpanded] = useState(false);
     // This is needed to stop a re-render loop? No idea why.
     const limitedData = useMemo(() => {
@@ -21,18 +27,29 @@ export default function Table({data, columns, initialLimit = 15}: { data: Record
         }
     }, [data, expanded, initialLimit])
     const hasMore = data.length > initialLimit;
-    console.log(`re-rendering ${data.length} ${expanded} ${hasMore} ${limitedData.length}`)
 
     const table = useReactTable({
         data: limitedData,
         columns: columns.map(column => ({
             id: column.name,
-            accessorFn: (rowObject: Record<string, string | number>) => {
-                const row = rowObject[column.name]
+            header: column.name.replace('_', ' '),
+            footer: ({table}) => {
+                if (column.name == columns[0].name) {
+                    return "Total"
+                }
+                if (column.type === "bytes" || column.type === "number") {
+                    // @ts-ignore
+                    const total = data.reduce((total, row) => total + row[column.name], 0)
+                    if (column.type == "number") {
+                        return total.toLocaleString()
+                    }
+                    return byteSize(total, {units: 'iec', precision: 1}).toString()
+                }
+            },
+            cell: props => {
+                const row = props.getValue();
                 if (column.type === undefined) {
-                    if (typeof row === "number") {
-                        return row.toLocaleString()
-                    } else if (row == "") {
+                    if (row == "") {
                         return `No ${column.name}`
                     } else {
                         return row
@@ -45,11 +62,11 @@ export default function Table({data, columns, initialLimit = 15}: { data: Record
                 } else if (column.type === "bytes") {
                     return byteSize(row, {units: 'iec', precision: 1}).toString()
                 }
-            }
+            },
+            accessorKey: column.name,
         })),
         getCoreRowModel: getCoreRowModel(),
     })
-    console.log(table.getCoreRowModel().rows.length);
 
     return (
         <table className="table table-xs">
@@ -79,21 +96,31 @@ export default function Table({data, columns, initialLimit = 15}: { data: Record
                     ))}
                 </tr>
             ))}
+
             </tbody>
+            <tfoot>
+            {table.getFooterGroups().map(footerGroup => (
+                <tr key={footerGroup.id}>
+                    {footerGroup.headers.map(header => (
+                        <td key={header.id}>
+                            {flexRender(header.column.columnDef.footer, header.getContext())}
+                        </td>
+                    ))}
+                </tr>
+            ))}
             {hasMore && (
-                <tfoot>
                 <tr>
                     <td colSpan={columns.length} className="text-center">
-                        <button className="btn btn-xs" onClick={(e) => {
+                        <button onClick={(e) => {
                             e.preventDefault();
                             setExpanded(!expanded);
                         }}>
-                            {expanded ? "Show less" : "Show All"}
+                            {expanded ? "Show less" : `Show All ${data.length} Rows`}
                         </button>
                     </td>
                 </tr>
-                </tfoot>
             )}
+            </tfoot>
         </table>
     )
 }

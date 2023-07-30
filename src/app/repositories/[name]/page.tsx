@@ -2,7 +2,6 @@ import {getData} from "@/app/repositories/page";
 import parseIso from 'date-fns/parseISO';
 import format from 'date-fns/format';
 import byteSize from "byte-size";
-import Link from "next/link";
 
 export default async function RepositoryDetail({params}: {
   params: { name: string }
@@ -48,8 +47,8 @@ export default async function RepositoryDetail({params}: {
               </a>
             </td>
             <td>
-              <Link href={`/projects/view?name=${name}`} className="normal-case text-small" passHref={true}>View all
-                releases</Link>
+              <a href={`/website/projects/view?name=${name}`} className="normal-case text-small">View all
+                releases</a>
             </td>
             <td>{count}</td>
           </tr>

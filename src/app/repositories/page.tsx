@@ -2,54 +2,21 @@ import byteSize from 'byte-size';
 import parseIso from 'date-fns/parseISO';
 import format from 'date-fns/format';
 import differenceInDays from 'date-fns/differenceInDays';
-import Link from "next/link";
 import fs from 'fs'
 import path from 'path'
-import {Bars3BottomRightIcon, CircleStackIcon, CodeBracketIcon} from "@heroicons/react/24/solid";
+import RepoStats from "@/app/repositories/repo-stats";
 
 const allRepoData = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/repositories_with_releases.json'), 'utf-8')) as RepoData[];
 
 export default async function RepositoriesList() {
   const data = await getData();
-  const repo_count = data.length;
-  const total_releases = data.reduce((acc, repo) => acc + repo.stats.total_packages, 0).toLocaleString(undefined, {minimumFractionDigits: 0});
-  const total_size = data.reduce((acc, repo) => acc + repo.size, 0);
 
   return (
     <>
       <article className="prose lg:prose-md mb-3">
         <h1>Repositories</h1>
       </article>
-      <div className="stats shadow">
-        <div className="stat">
-          <div className="stat-figure text-primary">
-            <CodeBracketIcon className="inline-block w-8 h-8 stroke-current"/>
-          </div>
-          <div className="stat-title">Repositories</div>
-          <div className="stat-value text-primary">{repo_count}</div>
-        </div>
-
-        <div className="stat">
-          <div className="stat-figure text-secondary">
-            <Bars3BottomRightIcon className="inline-block w-8 h-8 stroke-current"/>
-          </div>
-          <div className="stat-title">Total Releases</div>
-          <div
-            className="stat-value text-secondary">{total_releases.toLocaleString()}
-          </div>
-        </div>
-
-        <div className="stat">
-          <div className="stat-figure text-secondary">
-            <CircleStackIcon className="inline-block w-8 h-8 stroke-current"/>
-          </div>
-          <div className="stat-title">Total uncompressed size</div>
-          <div className="stat-value text-secondary">{byteSize(total_size, {
-            units: 'iec',
-            precision: 1
-          }).toString()}</div>
-        </div>
-      </div>
+      <RepoStats data={data}/>
 
       <table className="table table-sm table-fixed border-spacing-0">
         <thead>
@@ -70,9 +37,8 @@ export default async function RepositoriesList() {
           return (
             <tr key={p.name}>
               <td>
-                <Link href={`/repositories/${p.name}`}
-                      className="normal-case text-small"
-                      passHref={true}>{p.name}</Link>
+                <a href={`/website/repositories/${p.name}`}
+                      className="normal-case text-small">{p.name}</a>
               </td>
               <td>{format(earliest, 'dd/MM/yyyy')}</td>
               <td>{format(latest, 'dd/MM/yyyy')}</td>
