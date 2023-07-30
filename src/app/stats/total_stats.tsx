@@ -1,8 +1,8 @@
 import byteSize from "byte-size";
 import {CodeBracketIcon, Bars3BottomRightIcon, CircleStackIcon, BoltIcon} from '@heroicons/react/24/solid'
-import {StatsOverTimeStat, TotalStat} from "@/app/stats/stats";
+import {StatsOverTime, TotalStat} from "@/app/stats/stats";
 
-export default function TotalStats({stats, lastMonth}: { stats: TotalStat, lastMonth: StatsOverTimeStat }) {
+export default function TotalStats({stats, lastMonth}: { stats: TotalStat, lastMonth: StatsOverTime }) {
     const lines_per_second = lastMonth.total_lines / (lastMonth.total_hours * 60 * 60);
     return (
         <>
@@ -32,7 +32,7 @@ export default function TotalStats({stats, lastMonth}: { stats: TotalStat, lastM
                         <CircleStackIcon className="inline-block w-8 h-8 stroke-current"/>
                     </div>
                     <div className="stat-title">Total uncompressed size</div>
-                    <div className="stat-value text-secondary">{byteSize(stats.total_size).toString()}</div>
+                    <div className="stat-value text-secondary">{byteSize(stats.total_size, { units: 'iec', precision: 1 }).toString()}</div>
                     <div className="stat-desc">
                         That is ~{(stats.total_size / (1468006)).toLocaleString()} floppy disks
                     </div>

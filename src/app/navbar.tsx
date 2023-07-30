@@ -9,6 +9,8 @@ export default function NavBar() {
             <Link href="/datasets/" className="btn btn-ghost normal-case text-large" passHref={true}>Datasets</Link>
             <Link href="/repositories/" className="btn btn-ghost normal-case text-large"
                   passHref={true}>Repositories</Link>
+            <Link href="/pypi-json-data/" className="btn btn-ghost normal-case text-large"
+                  passHref={true}>PyPI JSON data</Link>
         </div>
     )
 }

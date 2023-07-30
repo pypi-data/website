@@ -44,7 +44,7 @@ export default async function RepositoriesList() {
                         <CircleStackIcon className="inline-block w-8 h-8 stroke-current"/>
                     </div>
                     <div className="stat-title">Total uncompressed size</div>
-                    <div className="stat-value text-secondary">{byteSize(total_size).toString()}</div>
+                    <div className="stat-value text-secondary">{byteSize(total_size, { units: 'iec', precision: 1 }).toString()}</div>
                 </div>
             </div>
 
@@ -74,7 +74,7 @@ export default async function RepositoriesList() {
                             <td>{format(earliest, 'dd/MM/yyyy')}</td>
                             <td>{format(latest, 'dd/MM/yyyy')}</td>
                             <td>{differenceInDays(latest, earliest)}</td>
-                            <td>{byteSize(p.size).toString()}</td>
+                            <td>{byteSize(p.size, { units: 'iec', precision: 1 }).toString()}</td>
                             <td>{p.stats.total_packages}</td>
                             <td>{p.percent_done}</td>
                         </tr>

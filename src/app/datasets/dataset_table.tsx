@@ -1,4 +1,3 @@
-import {InnerStat} from "@/app/stats/stats";
 import byteSize from "byte-size";
 
 export default function LinksTable({data}: { data: {url: string, size: number}[] }) {
@@ -16,7 +15,7 @@ export default function LinksTable({data}: { data: {url: string, size: number}[]
                     <td>
                         <a href={e.url}>{e.url}</a>
                     </td>
-                    <td>{byteSize(e.size).toString()}</td>
+                    <td>{byteSize(e.size, { units: 'iec', precision: 1 }).toString()}</td>
                 </tr>
             ))}
             </tbody>
@@ -26,7 +25,7 @@ export default function LinksTable({data}: { data: {url: string, size: number}[]
                     {data.length.toLocaleString()} links
                 </td>
                 <td>
-                    {byteSize(data.reduce((acc, cur) => acc + cur.size, 0)).toString()}
+                    {byteSize(data.reduce((acc, cur) => acc + cur.size, 0), { units: 'iec', precision: 1 }).toString()}
                 </td>
                 </tr>
             </tfoot>

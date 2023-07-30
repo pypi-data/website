@@ -22,7 +22,7 @@ export default function StatsTable({stats, primary}: { stats: InnerStat[], prima
                         <td>{key || `No ${primary}`}</td>
                         <td>{e.total_files.toLocaleString()}</td>
                         <td>{e.total_lines?.toLocaleString()}</td>
-                        <td>{byteSize(e.total_size).toString()}</td>
+                        <td>{byteSize(e.total_size, { units: 'iec', precision: 1 }).toString()}</td>
                     </tr>
                 )
             })}

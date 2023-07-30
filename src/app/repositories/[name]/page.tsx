@@ -23,7 +23,7 @@ export default async function RepositoryDetail({params}: {
           published between {format(earliest, 'dd/MM/yyyy')}
           and {format(latest, 'dd/MM/yyyy')}.
           The compressed size of this repository
-          is {byteSize(repo.size).toString()}
+          is {byteSize(repo.size, { units: 'iec', precision: 1 }).toString()}
         </p>
         <p>
           Link: <a href={repo.packages_url}>{repo.url}</a>
