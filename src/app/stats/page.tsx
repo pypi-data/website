@@ -10,7 +10,7 @@ export default async function Page() {
     const data = await getStats();
     const chartData = data.stats_over_time.sort((a, b) => a.month < b.month ? -1 : 1);
 
-    const lastMonth = chartData[chartData.length - 2];
+    const lastMonth = chartData[chartData.length - 1];
 
     return (
         <>
