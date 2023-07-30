@@ -72,7 +72,7 @@ export default function ProjectInfo({name}: {name: string}) {
                 <td><Timestamp date={p.package.upload_time}/></td>
                 <td>
                   <button className="btn btn-outline btn-info btn-xs mr-1">
-                    <a href={p.package.url} target="_blank">Download</a>
+                    <a href={p.package.url}>Download</a>
                   </button>
                   <button className="btn btn-outline btn-info btn-xs">
                     <a href={getInspectorLink(p)} target="_blank">Inspector</a>

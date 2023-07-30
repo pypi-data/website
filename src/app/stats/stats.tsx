@@ -6,22 +6,26 @@ export default async function getStats(): Promise<RepoStats> {
         throw new Error('Failed to fetch data')
     }
 
-    return res.json()
+    const json_res = await res.json();
+    const repo_stats = {}
+    for (const item of json_res as {name: string, stat: any[]}[]) {
+        // @ts-ignore
+        repo_stats[item.name] = item.stat
+        // console.log(key, value);
+    }
+    console.log(repo_stats)
+    return repo_stats as RepoStats
 }
 
 
 export interface RepoStats {
-    total_stats: { stat: [TotalStat] };
-    stats_over_time: StatsOverTime;
-    skipped_files_stats: Stats;
-    binary_extension_stats: Stats;
-    extension_stats: Stats;
+    total_stats: [TotalStat];
+    stats_over_time: StatsOverTime[];
+    skipped_files_stats: InnerStat[];
+    binary_extension_stats: InnerStat[];
+    extension_stats: InnerStat[];
+    projects_by_files: InnerStat[]
 }
-
-export interface Stats {
-    stat: InnerStat[];
-}
-
 export interface TotalStat {
     total_files: number;
     total_lines: number;
@@ -38,11 +42,8 @@ export interface InnerStat {
     unique_files?: number;
 }
 
-export interface StatsOverTime {
-    stat: StatsOverTimeStat[];
-}
 
-export interface StatsOverTimeStat {
+export interface StatsOverTime {
     month: string;
     total_uploads: number;
     project_releases: number;
