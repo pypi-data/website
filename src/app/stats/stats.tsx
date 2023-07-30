@@ -17,17 +17,17 @@ export default async function getStats(): Promise<RepoStats> {
 }
 
 
-export interface RepoStats {
+export type RepoStats = {
   total_stats: [TotalStat];
   stats_over_time: StatsOverTime[];
   skipped_files_stats: InnerStat[];
   binary_extension_stats: InnerStat[];
   extension_stats: InnerStat[];
-  projects_by_files: InnerStat[]
+  projects_by_files: ProjectStat[]
   skip_reason_stats: [{skip_reason: string, count: number}]
 }
 
-export interface TotalStat {
+export type TotalStat = {
   total_files: number;
   total_lines: number;
   total_size: number;
@@ -35,16 +35,23 @@ export interface TotalStat {
 }
 
 
-export interface InnerStat {
+export type InnerStat = {
   extension: string;
   total_files: number;
-  total_lines?: number;
+  total_lines: number;
   total_size: number;
-  unique_files?: number;
+  unique_files: number;
 }
 
+export type ProjectStat = {
+  project_name: string;
+  unique_files: number;
+  total_files: number;
+  total_lines: number;
+  total_size: number;
+}
 
-export interface StatsOverTime {
+export type StatsOverTime = {
   month: string;
   total_uploads: number;
   project_releases: number;

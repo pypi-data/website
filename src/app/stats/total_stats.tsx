@@ -12,8 +12,8 @@ export default function TotalStats({stats, lastMonth}: { stats: TotalStat, lastM
             <CodeBracketIcon className="inline-block w-8 h-8 stroke-current"/>
           </div>
           <div className="stat-title">Total files</div>
-          <div className="stat-value text-primary">{stats.total_files.toLocaleString()}</div>
-          <div className="stat-desc">But only {stats.unique_files.toLocaleString()} of them are unique</div>
+          <div className="stat-value text-primary">{(stats.total_files / 1000 / 1000 / 1000).toLocaleString(undefined, {maximumFractionDigits: 2})} Billion</div>
+          <div className="stat-desc">With {stats.unique_files.toLocaleString()} unique ones</div>
         </div>
 
         <div className="stat">
@@ -22,7 +22,7 @@ export default function TotalStats({stats, lastMonth}: { stats: TotalStat, lastM
           </div>
           <div className="stat-title">Total lines of text</div>
           <div
-            className="stat-value text-secondary">{(stats.total_lines / 1000 / 1000 / 1000).toLocaleString()} Billion
+            className="stat-value text-secondary">{(stats.total_lines / 1000 / 1000 / 1000).toLocaleString(undefined, {maximumFractionDigits: 1})} Billion
           </div>
           <div className="stat-desc">{stats.total_lines.toLocaleString()} to be precise</div>
         </div>
@@ -46,7 +46,7 @@ export default function TotalStats({stats, lastMonth}: { stats: TotalStat, lastM
             <BoltIcon className="inline-block w-8 h-8 stroke-current"/>
           </div>
           <div className="stat-title">Lines of code added per second</div>
-          <div className="stat-value text-secondary">{lines_per_second.toLocaleString()}</div>
+          <div className="stat-value text-secondary">{lines_per_second.toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
           <div className="stat-desc">
             In the month {lastMonth.month}
           </div>
