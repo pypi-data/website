@@ -1,12 +1,12 @@
 'use client'
 import Link from 'next/link';
-import {useSearchParams, useRouter, usePathname} from 'next/navigation'
+import {useRouter, useSearchParams} from 'next/navigation'
 import {useEffect, useMemo, useState} from "react";
 import Fuse from "fuse.js";
-import FuseIndex = Fuse.FuseIndex;
 import {useDebounce} from "use-debounce";
 import sampleSize from "lodash.samplesize";
 import useSWRImmutable from 'swr/immutable'
+import FuseIndex = Fuse.FuseIndex;
 
 const ASSET_PATH = process.env.NEXT_PUBLIC_ASSET_PATH || '';
 

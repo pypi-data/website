@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-4xl;
+    @apply font-extrabold;
+    @apply mb-3;
+  }
+
+  h1.card-title {
+    @apply text-2xl;
+  }
+
+  .card-body h3 {
+    @apply mt-4;
+  }
+
+  h2 {
+    @apply text-2xl;
+    @apply font-bold;
+    @apply mb-3;
+  }
+
+  h3 {
+    @apply text-xl;
+    @apply mb-3;
+    @apply font-bold;
+  }
+
+
+  p {
+    @apply mb-1;
+  }
+
+  article {
+    @apply mb-3;
+  }
+}

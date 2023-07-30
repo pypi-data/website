@@ -23,7 +23,7 @@ export default async function RepositoryDetail({params}: {
           published between {format(earliest, 'dd/MM/yyyy')}
           and {format(latest, 'dd/MM/yyyy')}.
           The compressed size of this repository
-          is {byteSize(repo.size, { units: 'iec', precision: 1 }).toString()}
+          is {byteSize(repo.size, {units: 'iec', precision: 1}).toString()}
         </p>
         <p>
           Link: <a href={repo.packages_url}>{repo.url}</a>
@@ -48,7 +48,8 @@ export default async function RepositoryDetail({params}: {
               </a>
             </td>
             <td>
-              <Link href={`/projects/view?name=${name}`} className="normal-case text-small" passHref={true}>View all releases</Link>
+              <Link href={`/projects/view?name=${name}`} className="normal-case text-small" passHref={true}>View all
+                releases</Link>
             </td>
             <td>{count}</td>
           </tr>

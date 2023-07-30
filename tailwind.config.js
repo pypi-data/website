@@ -12,4 +12,15 @@ module.exports = {
   daisyui: {
     themes: ["light", "dark"],
   },
+  theme: {
+    extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: null, // full width
+          }
+        }
+      }
+    }
+  }
 }

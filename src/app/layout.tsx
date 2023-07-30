@@ -3,8 +3,7 @@ import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
 import {SWRProvider} from './swr-provider'
 import NavBar from './navbar';
-import React from "react";
-import { Suspense } from 'react'
+import React, {Suspense} from "react";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -20,10 +19,10 @@ export default function RootLayout({children}: {
     <html lang="en">
     <SWRProvider>
       <body className={inter.className}>
-      <NavBar />
+      <NavBar/>
       <div className="container mx-auto">
         <Suspense fallback={<></>}>
-        {children}
+          {children}
         </Suspense>
       </div>
       </body>

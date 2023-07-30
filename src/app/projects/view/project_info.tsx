@@ -26,7 +26,7 @@ function getInspectorLink(p: PackageWithIndex): string {
 
 const ASSET_PATH = process.env.NEXT_PUBLIC_ASSET_PATH || '';
 
-export default function ProjectInfo({name}: {name: string}) {
+export default function ProjectInfo({name}: { name: string }) {
   const first_char = Array.from(name)[0];
   const {
     data,
