@@ -35,7 +35,7 @@ export default async function Home() {
                         <h1 className="text-5xl font-bold text-center">View repositories</h1>
                         <RepoStats data={repoData}/>
                     </div>
-                    <a href={"/website/stats"} role={"button"} className={"btn btn-primary btn-sm"}>Click here for lots of repositories!</a>
+                    <a href={"/website/repositories"} role={"button"} className={"btn btn-primary btn-sm"}>Click here for lots of repositories!</a>
                 </div>
             </div>
             <br/>
