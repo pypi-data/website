@@ -1,5 +1,6 @@
 'use client'
 import {
+    CartesianGrid,
     Cell,
     LabelList,
     Legend,
@@ -11,21 +12,64 @@ import {
     XAxis,
     YAxis
 } from 'recharts';
+import byteSize from "byte-size";
 
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#ff5100', '#FF8042'];
 
-export function Chart({chartData, valueNames}: { chartData: any[], valueNames: string[] }) {
+export function Chart({chartData, valueNames, cumulative = false, formats={}}: { chartData: {[key: string]: string | number}[], valueNames: string[], cumulative?: boolean, formats?: { [key: string]: 'bytes' } }) {
+    // remove null values from the chartData array, stopping after first non-null value is found
+    const firstNonNullIndex = chartData.findIndex((value) => {
+        for (const valueName of valueNames) {
+            if (value[valueName] !== 0) {
+                return true;
+            }
+        }
+        return false;
+    });
+    if (firstNonNullIndex > 0) {
+        chartData = chartData.slice(firstNonNullIndex);
+    }
+
+    if (cumulative) {
+        const chartDataDeepCopy = JSON.parse(JSON.stringify(chartData));
+        for (const valueName of valueNames) {
+            let sum = 0;
+            for (const value of chartDataDeepCopy) {
+                sum += value[valueName] as number;
+                value[valueName] = sum;
+            }
+        }
+        chartData = chartDataDeepCopy;
+    }
+
     return (
         <ResponsiveContainer width="100%" height={400}>
-            <LineChart data={chartData}>
-                {valueNames.map((valueName, index) => (
-                    <Line key={`chart-${index}`} type="monotone" stroke={COLORS[index]} dataKey={valueName} dot={false}/>
-                ))}
+            <LineChart key={`${valueNames}`} data={chartData}>
+                {valueNames.map((valueName, index) => {
+                    const name = valueName.replaceAll('_',' ');
+                    return <Line key={valueName}
+                                 animationDuration={750}
+                                 type="monotone"
+                                 name={name}
+                                 stroke={COLORS[index]}
+                                 dataKey={valueName} dot={false}/>
+                })}
+                <CartesianGrid strokeDasharray="3 3" opacity={0.1}/>
                 <XAxis dataKey="month"/>
-                <YAxis/>
-                <Tooltip/>
-                <Legend />
+                <YAxis tick={{fontSize: 10}} tickFormatter={(value, _) => {
+                    // @ts-ignore
+                    return new Intl.NumberFormat('en').format(value)
+                }}/>
+                <Tooltip formatter={(value, name, item) => {
+                    // @ts-ignore
+                    if (formats[item.dataKey] == "bytes" && typeof value === "number") {
+                        return byteSize(value, {precision: 2, units: "iec"}).toString();
+                    }
+                    // @ts-ignore
+                    return new Intl.NumberFormat('en').format(value)
+                }}/>
+                <Legend/>
             </LineChart>
         </ResponsiveContainer>
     )

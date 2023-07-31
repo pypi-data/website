@@ -41,9 +41,12 @@ export type RepoStats = {
     binary_extension_stats: InnerStat[];
     extension_stats: InnerStat[];
     projects_by_files: ProjectStat[]
-    skip_reason_stats: [{ skip_reason: string, count: number }],
+    skip_reason_stats: SkipReasonStat[],
     binary_sizes: [{ is_binary: boolean, total_files: number, total_size: number }],
     project_level_breakdowns: ProjectLevelBreakdown[],
+    new_projects_over_time: [{month: string, count: number}],
+    new_project_versions_over_time: [{month: string, count: number}],
+    new_releases_over_time: [{month: string, count: number}],
 
     sql: {
         stats_over_time: string,
@@ -111,13 +114,18 @@ export type ProjectStat = {
 
 export type StatsOverTime = {
     month: string;
-    total_uploads: number;
-    project_releases: number;
-    project_version_releases: number;
     total_files: number;
     total_size: number;
     total_lines: number;
-    total_hours: number;
 }
 
-
+export type SkipReasonStat = {
+    skip_reason: string;
+    total_projects: number;
+    count: number;
+    unique_files: number;
+    total_size: number;
+    total_lines: number;
+    max_size: number;
+    max_lines: number;
+}

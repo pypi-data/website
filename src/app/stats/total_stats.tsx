@@ -3,7 +3,8 @@ import {Bars3BottomRightIcon, BoltIcon, CircleStackIcon, CodeBracketIcon} from '
 import {StatsOverTime, TotalStat} from "@/app/stats/stats";
 
 export default function TotalStats({stats, lastMonth}: { stats: TotalStat, lastMonth: StatsOverTime }) {
-  const lines_per_second = lastMonth.total_lines / (lastMonth.total_hours * 60 * 60);
+  const total_hours_in_a_month = 24 * 30;
+  const lines_per_second = lastMonth.total_lines / (total_hours_in_a_month * 60 * 60);
   return (
     <>
       <div className="stats shadow">

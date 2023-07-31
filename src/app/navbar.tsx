@@ -8,9 +8,9 @@ export default function NavBar() {
             <a role={"button"} href="/website/repositories" className="btn btn-ghost normal-case text-large"
             >Repositories</a>
 
-            <a role={"button"} href="/website/datasets" className="btn btn-ghost normal-case text-large">Datasets</a>
-
             <a role={"button"} href="/website/stats" className="btn btn-ghost normal-case text-large">Stats for nerds 🤓</a>
+
+            <a role={"button"} href="/website/datasets" className="btn btn-ghost normal-case text-large">Datasets</a>
         </div>
     )
 }

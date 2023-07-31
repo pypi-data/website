@@ -6,17 +6,19 @@ import ShowSQL from "@/app/stats/sql";
 
 interface ChartScrollProps {
     chartData: any[];
-    charts: { name: string, valueNames: string[] }[];
+    charts: { name: string, valueNames: string[]}[];
+    formats?: {[key: string]: 'bytes'},
     sqlData?: string;
+    cumulative?: boolean;
 }
 
-export default function ChartScroll({chartData, charts, sqlData}: ChartScrollProps) {
+export default function ChartScroll({chartData, charts, sqlData, cumulative = false, formats={}}: ChartScrollProps) {
     const [chartIndex, setChartIndex] = useState(0);
     const selectedValueNames = charts[chartIndex].valueNames;
 
     return (
         <>
-            <div className="grid grid-flow-col grid-cols-min auto-rows-min">
+            <div className="grid grid-flow-col grid-cols-min auto-rows-min text-center">
                 {charts.map((chart, index) => {
                     const isSelected = index === chartIndex;
                     return (
@@ -28,7 +30,7 @@ export default function ChartScroll({chartData, charts, sqlData}: ChartScrollPro
                     )
                 })}
             </div>
-            <Chart chartData={chartData} valueNames={selectedValueNames}/>
+            <Chart chartData={chartData} valueNames={selectedValueNames} cumulative={cumulative} formats={formats}/>
             {sqlData && (<ShowSQL sqlData={sqlData}/>)}
         </>
     )

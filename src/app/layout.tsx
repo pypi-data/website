@@ -25,7 +25,8 @@ export default function RootLayout({children}: {
                     {children}
                 </Suspense>
             </div>
-            <footer className="footer bottom-0 footer-center p-4 bg-base-100 text-base-content">
+            <div className="divider"></div>
+            <footer className="footer bottom-0 footer-center p-0 bg-base-100 text-base-content">
                 <div>
                     <p>
                         <a href={"https://tomforb.es"}>Created by Tom Forbes</a> (<a href={"mailto:tom@tomforb.es"}>email contact</a>)
