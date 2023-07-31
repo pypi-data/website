@@ -2,7 +2,7 @@
 
 import {Chart} from "@/app/stats/chart";
 import {useState} from "react";
-import SyntaxHighlight from "@/app/datasets/syntax";
+import ShowSQL from "@/app/stats/sql";
 
 interface ChartScrollProps {
     chartData: any[];
@@ -12,7 +12,6 @@ interface ChartScrollProps {
 
 export default function ChartScroll({chartData, charts, sqlData}: ChartScrollProps) {
     const [chartIndex, setChartIndex] = useState(0);
-    const [expandSQL, setExpandSQL] = useState(false);
     const selectedValueNames = charts[chartIndex].valueNames;
 
     return (
@@ -30,9 +29,7 @@ export default function ChartScroll({chartData, charts, sqlData}: ChartScrollPro
                 })}
             </div>
             <Chart chartData={chartData} valueNames={selectedValueNames}/>
-            <SyntaxHighlight language="shell">
-                {sqlData || ""}
-            </SyntaxHighlight>
+            {sqlData && (<ShowSQL sqlData={sqlData}/>)}
         </>
     )
 }

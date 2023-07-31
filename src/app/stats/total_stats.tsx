@@ -13,7 +13,7 @@ export default function TotalStats({stats, lastMonth}: { stats: TotalStat, lastM
           </div>
           <div className="stat-title">Total files</div>
           <div className="stat-value text-primary">{(stats.total_files / 1000 / 1000 / 1000).toLocaleString(undefined, {maximumFractionDigits: 2})} Billion</div>
-          <div className="stat-desc">With {stats.unique_files.toLocaleString()} unique ones</div>
+          <div className="stat-desc">{stats.unique_files.toLocaleString()} unique </div>
         </div>
 
         <div className="stat">

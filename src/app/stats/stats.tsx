@@ -28,8 +28,7 @@ export default async function getStats(): Promise<RepoStats> {
           throw Error(`Failed to compile PRQL for ${item.name}`);
         }
         // @ts-ignore
-        repo_stats.sql[item.name] = sql;
-        // console.log(key, value);
+        repo_stats.sql[item.name] = sql.replace('$1', "'data_from_the_datasets_page/*.parquet'");
     }
     return repo_stats as RepoStats
 }
@@ -47,7 +46,12 @@ export type RepoStats = {
     project_level_breakdowns: ProjectLevelBreakdown[],
 
     sql: {
-        project_level_breakdowns: string
+        stats_over_time: string,
+        project_level_breakdowns: string,
+        binary_sizes: string,
+        binary_extension_stats: string,
+        projects_by_files: string,
+        extension_stats: string
     };
 }
 

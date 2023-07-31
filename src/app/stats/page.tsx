@@ -5,6 +5,7 @@ import Table from "@/app/table";
 import {InformationCircleIcon} from '@heroicons/react/24/solid'
 import byteSize from "byte-size";
 import ChartScroll from "@/app/stats/chart-scroll";
+import ShowSQL from "@/app/stats/sql";
 
 // const data2 = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400}];
 
@@ -48,7 +49,9 @@ export default async function Page() {
     return (
         <>
             <h1>The contents of PyPI, in numbers</h1>
-            <TotalStats stats={data.total_stats[0]} lastMonth={lastMonth}/>
+            <div className="text-center">
+                <TotalStats stats={data.total_stats[0]} lastMonth={lastMonth}/>
+            </div>
 
             <ChartScroll chartData={projectStats} sqlData={data.sql.project_level_breakdowns} charts={[
                 {name: "Setup.py vs PyProject.toml", valueNames: ["total_project_uploads", "has_setup_py", "has_pyproject", "has_requirements_txt"]},
@@ -77,6 +80,7 @@ export default async function Page() {
                         uncompressed size.
                     </p>
                     <PieChart chartData={binarySizes} dataKey="total_size" nameKey="text"/>
+                    <ShowSQL sqlData={data.sql.binary_sizes}/>
                 </div>
                 <div>
                     <Table data={data.binary_extension_stats} columns={[
@@ -84,6 +88,7 @@ export default async function Page() {
                         {name: "total_files", type: "number"},
                         {name: "total_size", type: "bytes"},
                         {name: "unique_files", type: "number"}]}/>
+                    <ShowSQL sqlData={data.sql.binary_extension_stats}/>
                 </div>
             </div>
             <div className="divider"></div>
@@ -98,6 +103,7 @@ export default async function Page() {
                         {name: "total_lines", type: "number"},
                         {name: "total_size", type: "bytes"},
                     ]}/>
+                    <ShowSQL sqlData={data.sql.projects_by_files}/>
                 </div>
                 <div>
                     <h1>Stats By Extensions</h1>
@@ -108,6 +114,7 @@ export default async function Page() {
                         {name: "total_lines", type: "number"},
                         {name: "total_size", type: "bytes"},
                         {name: "unique_files", type: "number"}]}/>
+                    <ShowSQL sqlData={data.sql.extension_stats}/>
                 </div>
 
             </div>
@@ -118,6 +125,7 @@ export default async function Page() {
                 {name: "Size", valueNames: ["total_size"]},
                 {name: "Lines", valueNames: ["total_lines"]},
             ]}/>
+            <ShowSQL sqlData={data.sql.stats_over_time}/>
         </>
     )
 }
