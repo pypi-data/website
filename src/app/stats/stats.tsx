@@ -50,7 +50,10 @@ export type ProjectLevelBreakdown = {
 
     has_markdown: number;
     has_rst: number;
+
     has_tests: number;
+    has_tox: number;
+    has_pytest: number;
 }
 
 export type InnerStat = {
