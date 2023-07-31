@@ -54,7 +54,7 @@ export default async function Page() {
                 {name: "Setup.py vs PyProject.toml", valueNames: ["total_project_uploads", "has_setup_py", "has_pyproject", "has_requirements_txt"]},
                 {name: "Markdown vs RST", valueNames: ["total_project_uploads", "has_markdown", "has_rst"]},
                 {name: "Typing", valueNames: ["has_pyi", "has_py_typed"]},
-                {name: "File Formats", valueNames: ["has_json", "has_ini", "has_xml", "has_toml", "has_yaml"]},
+                {name: "File Formats", valueNames: ["has_json", "has_ini", "has_xml", "has_toml", "has_yaml", "has_rust", "has_c_or_cpp"]},
                 {name: "Test Runner", valueNames: ["has_tests", "has_pytest", "has_tox"]},
             ]}/>
             <div className="divider"></div>
