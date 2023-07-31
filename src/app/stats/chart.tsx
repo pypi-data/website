@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#ff5100', '#FF8042'];
 
 export function Chart({chartData, valueNames}: { chartData: any[], valueNames: string[] }) {
     return (
