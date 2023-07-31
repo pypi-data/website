@@ -1,3 +1,6 @@
+import {compile, CompileOptions} from "prql-js/dist/bundler";
+
+
 export default async function getStats(): Promise<RepoStats> {
     const res = await fetch('https://raw.githubusercontent.com/pypi-data/data/main/stats/totals.json')
 
@@ -7,10 +10,25 @@ export default async function getStats(): Promise<RepoStats> {
     }
 
     const json_res = await res.json();
-    const repo_stats = {}
+
+    const rawPrqlRes = await fetch('https://raw.githubusercontent.com/pypi-data/data/main/sql/_stats.prql');
+    const rawPrql = await rawPrqlRes.text();
+    const opts = new CompileOptions();
+    opts.target = "sql.duckdb";
+    opts.format = true;
+    opts.signature_comment = false;
+
+
+    const repo_stats = {sql: {}}
     for (const item of json_res as { name: string, stat: any[] }[]) {
         // @ts-ignore
         repo_stats[item.name] = item.stat
+        const sql = compile(`${rawPrql}\nrelation_to_json(${item.name})`, opts);
+        if (sql === undefined) {
+          throw Error(`Failed to compile PRQL for ${item.name}`);
+        }
+        // @ts-ignore
+        repo_stats.sql[item.name] = sql;
         // console.log(key, value);
     }
     return repo_stats as RepoStats
@@ -26,7 +44,9 @@ export type RepoStats = {
     projects_by_files: ProjectStat[]
     skip_reason_stats: [{ skip_reason: string, count: number }],
     binary_sizes: [{ is_binary: boolean, total_files: number, total_size: number }],
-    project_level_breakdowns: ProjectLevelBreakdown[]
+    project_level_breakdowns: ProjectLevelBreakdown[],
+
+    sql: Map<string, string>;
 }
 
 export type TotalStat = {

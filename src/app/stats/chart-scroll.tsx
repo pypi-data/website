@@ -3,8 +3,15 @@
 import {Chart} from "@/app/stats/chart";
 import {useState} from "react";
 
-export default function ChartScroll({chartData, charts}: { chartData: any[], charts: { name: string, valueNames: string[] }[] }) {
+interface ChartScrollProps {
+  chartData: any[];
+  charts: { name: string, valueNames: string[] }[];
+  sqlData?: string;
+}
+
+export default function ChartScroll({chartData, charts, sqlData}: ChartScrollProps) {
     const [chartIndex, setChartIndex] = useState(0);
+    const [expandSQL, setExpandSQL] = useState(false);
     const selectedValueNames = charts[chartIndex].valueNames;
 
     return (
@@ -22,6 +29,9 @@ export default function ChartScroll({chartData, charts}: { chartData: any[], cha
                 })}
             </div>
             <Chart chartData={chartData} valueNames={selectedValueNames}/>
+            <code>
+              {sqlData}
+            </code>
         </>
     )
 }
