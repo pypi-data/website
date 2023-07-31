@@ -100,7 +100,7 @@ export default function ProjectsList() {
             <article className="prose lg:prose-md mb-3">
                 <h1>Projects List <small>{data.packages.length.toLocaleString()} projects</small></h1>
             </article>
-            <form className="w-full">
+            <form className="w-full" onSubmit={(e) => {e.preventDefault();}}>
                 <div className="flex items-center w-full">
                     <input type="text"
                            placeholder={`Search for a project. ${randomName && 'i.e ' + randomName || ''}`}
