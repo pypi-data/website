@@ -63,7 +63,6 @@ export type ProjectLevelBreakdown = {
 
     has_pyi: number;
     has_py_typed: number;
-    has_types: number;
 }
 
 export type InnerStat = {
