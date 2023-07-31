@@ -46,7 +46,9 @@ export type RepoStats = {
     binary_sizes: [{ is_binary: boolean, total_files: number, total_size: number }],
     project_level_breakdowns: ProjectLevelBreakdown[],
 
-    sql: Map<string, string>;
+    sql: {
+        project_level_breakdowns: string
+    };
 }
 
 export type TotalStat = {

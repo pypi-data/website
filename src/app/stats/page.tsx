@@ -50,7 +50,7 @@ export default async function Page() {
             <h1>The contents of PyPI, in numbers</h1>
             <TotalStats stats={data.total_stats[0]} lastMonth={lastMonth}/>
 
-            <ChartScroll chartData={projectStats} charts={[
+            <ChartScroll chartData={projectStats} sqlData={data.sql.project_level_breakdowns} charts={[
                 {name: "Setup.py vs PyProject.toml", valueNames: ["total_project_uploads", "has_setup_py", "has_pyproject", "has_requirements_txt"]},
                 {name: "Markdown vs RST", valueNames: ["total_project_uploads", "has_markdown", "has_rst"]},
                 {name: "Typing", valueNames: ["has_pyi", "has_py_typed"]},

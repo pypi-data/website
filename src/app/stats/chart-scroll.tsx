@@ -2,11 +2,12 @@
 
 import {Chart} from "@/app/stats/chart";
 import {useState} from "react";
+import SyntaxHighlight from "@/app/datasets/syntax";
 
 interface ChartScrollProps {
-  chartData: any[];
-  charts: { name: string, valueNames: string[] }[];
-  sqlData?: string;
+    chartData: any[];
+    charts: { name: string, valueNames: string[] }[];
+    sqlData?: string;
 }
 
 export default function ChartScroll({chartData, charts, sqlData}: ChartScrollProps) {
@@ -29,9 +30,9 @@ export default function ChartScroll({chartData, charts, sqlData}: ChartScrollPro
                 })}
             </div>
             <Chart chartData={chartData} valueNames={selectedValueNames}/>
-            <code>
-              {sqlData}
-            </code>
+            <SyntaxHighlight language="shell">
+                {sqlData || ""}
+            </SyntaxHighlight>
         </>
     )
 }

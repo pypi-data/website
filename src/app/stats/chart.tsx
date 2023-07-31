@@ -1,12 +1,13 @@
 'use client'
 import {
-    Cell, Label, LabelList,
+    Cell,
+    LabelList,
     Legend,
     Line,
     LineChart,
     Pie,
     PieChart as RechartPieChart,
-    ResponsiveContainer, Text, Tooltip,
+    ResponsiveContainer, Tooltip,
     XAxis,
     YAxis
 } from 'recharts';
