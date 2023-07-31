@@ -54,6 +54,12 @@ export type ProjectLevelBreakdown = {
     has_tests: number;
     has_tox: number;
     has_pytest: number;
+
+    has_ini: number;
+    has_json: number;
+    has_xml: number;
+    has_toml: number;
+    has_yaml: number;
 }
 
 export type InnerStat = {
