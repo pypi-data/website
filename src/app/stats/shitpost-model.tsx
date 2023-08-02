@@ -1,32 +1,48 @@
-// @ts-ignore
-import ARIMA from 'arima';
+import {cumulative_sum} from "@/app/stats/utils";
 
-export default function extrapolate(values: { month: string, new_projects: number, new_project_versions: number, new_releases: number }[]) {
-    const extra = extrapolateSeries(values.map((el) => el.new_releases))
-    // return
-        // ...values.map((el, idx) => ({...el, month: idx.toString()})),
-    let date = new Date(values[0].month);
-    return extra.map((el, idx) => {
-        let x = {month: `${date.getFullYear()}-${(String(date.getMonth() + 1)).padStart(2, '0')}-01`, new_releases: el};
+export default function extrapolate(years: number, values: {
+    month: string,
+    new_releases: number,
+    total_files: number,
+    total_size: number
+}[]) {
+    let releases_extrapolated = extrapolateSeries(years, values.map((el) => el.new_releases))
+    let files_extrapolated = extrapolateSeries(years, values.map((el) => el.total_files))
+    let size_extrapolated = extrapolateSeries(years, values.map((el) => el.total_size))
+
+    let extrapolated = [];
+    let date = new Date(values[values.length - 1].month);
+    for (let i = 0; i < years * 12; i++) {
+        let month = `${date.getFullYear()}-${(String(date.getMonth() + 1)).padStart(2, '0')}-01`;
+        // increase by growth per month
+
+        extrapolated.push({
+            month,
+            new_releases: releases_extrapolated[i],
+            total_files: files_extrapolated[i],
+            total_size: size_extrapolated[i]
+        });
+
         date = new Date(date.setMonth(date.getMonth() + 1));
-        return x
-    });
+    }
 
+    // console.log(extrapolated.slice(10))
+    return [...values, ...extrapolated]
 }
 
-function extrapolateSeries(values: number[]) {
-    let cumulativeSum = values.map((c, i, a) => (
-        c + (a.slice(0, i).reduce((acc, v) => acc + v, 0) || 0)
-    ));
-    const autoarima = new ARIMA({auto: true}).fit(cumulativeSum);
-    const [pred, errors] = autoarima.predict(12 * 25)
-    // console.log(pred, errors.map());
-    // console.log(pred, errors, errors.map((e, idx) => pred[idx] + (Math.sqrt(e) * 2)))
+function extrapolateSeries(years: number, values: number[]) {
+    let time_slice = cumulative_sum(values.slice((values.length - 12), values.length).map(x=>({x})), ["x"]).map(({x})=>x)
+    let releases_diff = time_slice[time_slice.length - 1] - time_slice[0];
+    let growth_percent = (releases_diff / time_slice[0]);
+    let growth_per_month = growth_percent / time_slice.length;
 
-    // @ts-ignore
-    return [...cumulativeSum, ...errors.map((e, idx) => Math.round(pred[idx] + (Math.sqrt(e) ** (1.3 + (idx / 500)))))]
-
-    // pred.forEach((value: number) => {
-    //     cumulativeSum.push(value)
-    // })
+    let last_value = values[values.length - 1];
+    let extrapolated = []
+    for (let i = 0; i < years * 12; i++) {
+        // increase by growth per month
+        // let increase = last_value * growth_per_month;
+        last_value = last_value * growth_per_month;
+        extrapolated.push(last_value);
+    }
+    return extrapolated
 }

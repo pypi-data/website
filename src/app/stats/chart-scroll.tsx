@@ -1,7 +1,7 @@
 'use client'
 
 import {Chart} from "@/app/stats/chart";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ShowSQL from "@/app/stats/sql";
 
 interface ChartScrollProps {
@@ -10,11 +10,15 @@ interface ChartScrollProps {
     formats?: {[key: string]: 'bytes'},
     sqlData?: string;
     cumulative?: boolean;
+    showValueHeader?: (value: { [key: string]: string | number; }) => string,
 }
 
-export default function ChartScroll({chartData, charts, sqlData, cumulative = false, formats={}}: ChartScrollProps) {
+export default function ChartScroll({chartData, charts, sqlData, cumulative = false, formats={}, showValueHeader}: ChartScrollProps) {
     const [chartIndex, setChartIndex] = useState(0);
-    const selectedValueNames = charts[chartIndex].valueNames;
+    useEffect(() => {
+        setChartIndex(0);
+    }, [charts])
+    const selectedValueNames = chartIndex < charts.length ? charts[chartIndex].valueNames : charts[0].valueNames;
 
     return (
         <>
@@ -30,8 +34,9 @@ export default function ChartScroll({chartData, charts, sqlData, cumulative = fa
                     )
                 })}
             </div>
-            <Chart chartData={chartData} valueNames={selectedValueNames} cumulative={cumulative} formats={formats}/>
+            <Chart chartData={chartData} valueNames={selectedValueNames} cumulative={cumulative} formats={formats} showValueHeader={showValueHeader}/>
             {sqlData && (<ShowSQL sqlData={sqlData}/>)}
         </>
     )
 }
+

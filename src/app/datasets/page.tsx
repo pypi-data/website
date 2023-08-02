@@ -6,9 +6,7 @@ import Table from "@/app/table";
 
 const SQLITE_URL = "https://github.com/pypi-data/pypi-json-data/releases/download/latest/pypi-data.sqlite.gz"
 const DATASET_URL = "https://github.com/pypi-data/data/raw/main/links/dataset.txt"
-const PYTHON_DATASET_URL = "https://github.com/pypi-data/data/raw/main/links/unique_python_files.txt"
 const CURL_EXAMPLE = `$ curl -L --remote-name-all $(curl -L "${DATASET_URL}")`
-const PYTHON_CURL_EXAMPLE = `$ curl -L --remote-name-all $(curl -L "${PYTHON_DATASET_URL}")`
 const SQLITE_CURL_EXAMPLE = `$ curl -L ${SQLITE_URL} | gzip -d > pypi-data.sqlite`
 const DUCK_DB_EXAMPLE = `${CURL_EXAMPLE}
 $ duckdb -json -s "select * from '*.parquet' order by lines DESC limit 1"
@@ -54,12 +52,6 @@ export default async function Page() {
     const linkresp = await fetch(DATASET_URL)
     const links = (await linkresp.text()).split('\n').filter((e) => e.length > 0);
 
-    const pythonlinkresp = await fetch(PYTHON_DATASET_URL)
-    const pythonlinks = (await pythonlinkresp.text()).split('\n').filter((e) => e.length > 0);
-
-    const pythonsampleresp = await fetch("https://raw.githubusercontent.com/pypi-data/data/main/stats/random_sample_python_only.json")
-    const pythonsampledata = await pythonsampleresp.json();
-
     const sqliteResponse = await fetch(SQLITE_URL, {method: "HEAD"})
     const sqliteSize = Number(sqliteResponse.headers.get("content-length"))
 
@@ -78,27 +70,16 @@ export default async function Page() {
         }
     }));
 
-    const pythonsizes = await Promise.all(pythonlinks.map(async (link) => {
-        let resp = await fetch(link, {method: "HEAD"});
-        return {
-            url: link,
-            size: Number(resp.headers.get("content-length"))
-        }
-    }));
-
     return (
         <>
             <h1>Datasets</h1>
             <article className="prose">
                 <p className={"mb-0"}>
-                    There are three datasets available for use:
+                    There are two datasets available for use:
                 </p>
                 <ol className={"mt-0"}>
                     <li>
                         <a href="#metadata">Metadata about every file uploaded to PyPI</a>
-                    </li>
-                    <li>
-                        <a href="#unique-python-files">Unique Python files within every release</a>
                     </li>
                     <li>
                         <a href="#sqlite-dump">SQLite dump of all PyPI metadata</a>
@@ -214,45 +195,6 @@ export default async function Page() {
                             </SyntaxHighlight>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div className="divider"></div>
-
-            <div className="card rounded-box bg-base-100 shadow-2xl">
-                <div className="card-body">
-                    <h1 className="card-title" id="unique-python-files">Unique Python files</h1>
-                    <p>
-                        This dataset contains one row per <strong>unique</strong> Python file within every
-                        release uploaded to
-                        PyPI.
-                        Only the sha256 hash and a random path to the file is provided. This dataset is useful
-                        if you want to
-                        parse
-                        the Python files yourself, but want to avoid parsing the same file multiple times.
-                    </p>
-                    <p>
-                        Like the main dataset, the unique files dataset should be accessed by downloading the links
-                        <a href={PYTHON_DATASET_URL} target="_blank">from the following file</a> :
-                    </p>
-                    <SyntaxHighlight language="shell">
-                        {PYTHON_CURL_EXAMPLE}
-                    </SyntaxHighlight>
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <h3>About</h3>
-
-                            <h3>Current Links</h3>
-                            <LinksTable data={pythonsizes}/>
-                        </div>
-                        <div>
-                            <h3>Schema</h3>
-                            <SyntaxHighlight language="json">
-                                {JSON.stringify(pythonsampledata, null, 2)}
-                            </SyntaxHighlight>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 

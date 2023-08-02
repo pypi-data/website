@@ -18,7 +18,6 @@
     "@next/bundle-analyzer": "^13.4.12",
     "@tailwindcss/typography": "^0.5.9",
     "@tanstack/react-table": "^8.9.3",
-    "arima": "^0.2.5",
     "byte-size": "^8.1.1",
     "daisyui": "^3.2.1",
     "date-fns": "^2.30.0",
