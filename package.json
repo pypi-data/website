@@ -22,7 +22,7 @@
     "daisyui": "^3.5.1",
     "date-fns": "^2.30.0",
     "eslint": "8.46.0",
-    "eslint-config-next": "13.4.12",
+    "eslint-config-next": "13.4.13",
     "fuse.js": "^6.6.2",
     "human-format": "^1.2.0",
     "lodash.samplesize": "^4.2.0",
