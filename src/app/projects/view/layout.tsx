@@ -1,15 +1,9 @@
-import React, {Suspense} from "react";
+import React, { Suspense } from "react";
 
 function ProjectFallback() {
-  return <>Loading</>
+  return <>Loading</>;
 }
 
-export default function RootLayout({children}: {
-  children: React.ReactNode
-}) {
-  return (
-    <Suspense fallback={<ProjectFallback/>}>
-      {children}
-    </Suspense>
-  )
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return <Suspense fallback={<ProjectFallback />}>{children}</Suspense>;
 }
