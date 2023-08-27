@@ -144,7 +144,8 @@ export default async function Page() {
         </ol>
         <p>
           These datasets allow you to analyse the contents of PyPI without having to download and process every package
-          yourself. All of the statistics within the <a href="/stats">stats page</a> are periodically generated using the datasets below.
+          yourself. All of the statistics within the <a href="/stats">stats page</a> are periodically generated using
+          the datasets below.
         </p>
       </article>
 
@@ -283,7 +284,8 @@ export default async function Page() {
             Repository Metadata
           </h1>
           <p>
-            This dataset contains information about the pypi-data git repositories. The <code>repositories_with_releases.json</code>
+            This dataset contains information about the pypi-data git repositories. The{" "}
+            <code>repositories_with_releases.json</code>
             file contains a list of project names contained within each git repository.
           </p>
 
@@ -296,7 +298,9 @@ export default async function Page() {
             </div>
             <div>
               <h3>Schema</h3>
-              <SyntaxHighlight language="json">{JSON.stringify([repo_metadata_example_element], null, 2)}</SyntaxHighlight>
+              <SyntaxHighlight language="json">
+                {JSON.stringify([repo_metadata_example_element], null, 2)}
+              </SyntaxHighlight>
             </div>
           </div>
         </div>

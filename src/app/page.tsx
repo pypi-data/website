@@ -1,11 +1,12 @@
 import TotalStats from "@/app/stats/total_stats";
 import getStats from "@/app/stats/stats";
 import { getData as getRepoData } from "@/app/repositories/page";
-import RepoStats from "@/app/repositories/repo-stats";
+import byteSize from "byte-size";
 
 export default async function Home() {
   const data = await getStats();
   const repoData = await getRepoData();
+  const total_size = repoData.reduce((acc, repo) => acc + repo.size, 0);
   const chartData = data.stats_over_time.sort((a, b) => (a.month < b.month ? -1 : 1));
   const lastMonth = chartData[chartData.length - 2];
 
@@ -16,39 +17,39 @@ export default async function Home() {
           <div>
             <h1 className="text-5xl font-bold text-center">What is this?</h1>
           </div>
-          Explainer goes here
+          <p className={"text-lg text-center"}>
+            This project makes it easy to analyze the Python ecosystem by providing of all the code ever published to
+            PyPI via <code>git</code>, parquet datasets with file metadata, and a set of tools to help analyze the data.
+          </p>
+          <p className={"text-lg text-center"}>
+            Thanks to the power of git the contents of PyPI takes up only{" "}
+            {byteSize(total_size, {
+              precision: 1,
+            }).toString()}{" "}
+            on disk, and thanks to tools like <a href="https://libcst.readthedocs.io/en/latest/">libcst</a> every Python
+            file can be analysed on a consumer-grade laptop in a few hours.
+          </p>
+          <p className={"text-lg text-center"}>
+            <a href={"/download"} role={"button"} className={"btn btn-primary btn-sm mr-3"}>
+              Download all the code
+            </a>
+            <a href={"/datasets"} role={"button"} className={"btn btn-primary btn-sm"}>
+              Explore the datasets
+            </a>
+          </p>
         </div>
       </div>
       <br />
       <div className="hero bg-base-200">
         <div className="hero-content flex-col">
           <div>
-            <h1 className="text-5xl font-bold text-center">Explore Datasets</h1>
-          </div>
-          Stuff about datasets go here
-        </div>
-      </div>
-      <br />
-      <div className="hero bg-base-200">
-        <div className="hero-content flex-col">
-          <div>
-            <h1 className="text-5xl font-bold text-center">Stats for nerds 🤓</h1>
+            <a href={"/stats"}>
+              <h1 className="text-5xl font-bold text-center">Stats for nerds 🤓</h1>
+            </a>
             <TotalStats stats={data.total_stats[0]} lastMonth={lastMonth} />
           </div>
           <a href={"/stats"} role={"button"} className={"btn btn-primary btn-sm"}>
-            Click here for lots of graphs!
-          </a>
-        </div>
-      </div>
-      <br />
-      <div className="hero bg-base-200">
-        <div className="hero-content flex-col">
-          <div>
-            <h1 className="text-5xl font-bold text-center">View repositories</h1>
-            <RepoStats data={repoData} />
-          </div>
-          <a href={"/repositories"} role={"button"} className={"btn btn-primary btn-sm"}>
-            Click here for lots of repositories!
+            Click here for lots more stats!
           </a>
         </div>
       </div>

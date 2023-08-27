@@ -5,6 +5,10 @@ export default function NavBar() {
         PyPI Data
       </a>
 
+      <a role={"button"} href="/download" className="btn btn-ghost normal-case text-large">
+        Download PyPI
+      </a>
+
       <a role={"button"} href="/stats" className="btn btn-ghost normal-case text-large">
         Stats for nerds 🤓
       </a>
