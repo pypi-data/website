@@ -68,9 +68,9 @@ jobs:
             --content-directory ${{ github.workspace }}/public/data/ \
             --reload-from ${{ github.workspace }}/.cache/data.json
 
-#      - name: Setup Pages
-#        id: setup-pages
-#        uses: actions/configure-pages@v3
+      - name: Setup Pages
+        id: setup-pages
+        uses: actions/configure-pages@v3
 
       - name: Install deps
         run: |
@@ -81,9 +81,9 @@ jobs:
 
       - name: Build site
         run: npm run build -- --no-lint
-#        env:
-#          NEXT_PUBLIC_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
-#          NEXT_PUBLIC_ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
+          NEXT_PUBLIC_ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
 
       - name: Create artifact
         run: |
