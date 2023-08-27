@@ -144,7 +144,7 @@ export default async function Page() {
         </ol>
         <p>
           These datasets allow you to analyse the contents of PyPI without having to download and process every package
-          yourself. All of the statistics within the <a href="/website/stats">stats page</a> are periodically generated using the datasets below.
+          yourself. All of the statistics within the <a href="/stats">stats page</a> are periodically generated using the datasets below.
         </p>
       </article>
 

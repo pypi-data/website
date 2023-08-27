@@ -46,7 +46,7 @@ export default async function RepositoryDetail({ params }: { params: { name: str
                   </a>
                 </td>
                 <td>
-                  <a href={`/website/projects/view?name=${name}`} className="normal-case text-small">
+                  <a href={`/projects/view?name=${name}`} className="normal-case text-small">
                     View all releases
                   </a>
                 </td>

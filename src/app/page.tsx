@@ -35,7 +35,7 @@ export default async function Home() {
             <h1 className="text-5xl font-bold text-center">Stats for nerds 🤓</h1>
             <TotalStats stats={data.total_stats[0]} lastMonth={lastMonth} />
           </div>
-          <a href={"/website/stats"} role={"button"} className={"btn btn-primary btn-sm"}>
+          <a href={"/stats"} role={"button"} className={"btn btn-primary btn-sm"}>
             Click here for lots of graphs!
           </a>
         </div>
@@ -47,7 +47,7 @@ export default async function Home() {
             <h1 className="text-5xl font-bold text-center">View repositories</h1>
             <RepoStats data={repoData} />
           </div>
-          <a href={"/website/repositories"} role={"button"} className={"btn btn-primary btn-sm"}>
+          <a href={"/repositories"} role={"button"} className={"btn btn-primary btn-sm"}>
             Click here for lots of repositories!
           </a>
         </div>

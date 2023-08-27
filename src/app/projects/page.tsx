@@ -153,11 +153,11 @@ export default function ProjectsList() {
                 <tr key={p}>
                   <th>
                     <p>
-                      <a href={`/website/projects/view?name=${p}`}>{p}</a>
+                      <a href={`/projects/view?name=${p}`}>{p}</a>
                     </p>
                   </th>
                   <td>
-                    <a role={"button"} className={"btn btn-info btn-xs"} href={`/website/projects/view?name=${p}`}>
+                    <a role={"button"} className={"btn btn-info btn-xs"} href={`/projects/view?name=${p}`}>
                       View
                     </a>
                   </td>
