@@ -105,8 +105,11 @@ export default async function Page() {
     }),
   );
 
+  const repo_metadata_example = await (await fetch(REPOSITORIES_DATASET_URL)).json();
+  const repo_metadata_example_element = repo_metadata_example[0];
+
   const repo_metadata_sizes = await Promise.all(
-    [REPOSITORIES_DATASET_URL, REPOSITORIES_WITH_RELEASES_DATASET_URL].map(async (link) => {
+    [REPOSITORIES_WITH_RELEASES_DATASET_URL, REPOSITORIES_DATASET_URL].map(async (link) => {
       let resp = await fetch(link, {
         method: "HEAD",
         headers: {
@@ -141,8 +144,7 @@ export default async function Page() {
         </ol>
         <p>
           These datasets allow you to analyse the contents of PyPI without having to download and process every package
-          yourself. All of the statistics within the <a href="/website/stats">stats page</a>
-          are periodically generated using the datasets below.
+          yourself. All of the statistics within the <a href="/website/stats">stats page</a> are periodically generated using the datasets below.
         </p>
       </article>
 
@@ -281,9 +283,8 @@ export default async function Page() {
             Repository Metadata
           </h1>
           <p>
-            This dataset contains one row per <strong>unique</strong> Python file within every release uploaded to PyPI.
-            Only the sha256 hash and a random path to the file is provided. This dataset is useful if you want to parse
-            the Python files yourself, but want to avoid parsing the same file multiple times.
+            This dataset contains information about the pypi-data git repositories. The <code>repositories_with_releases.json</code>
+            file contains a list of project names contained within each git repository.
           </p>
 
           <div className="grid grid-cols-2 gap-4">
@@ -295,7 +296,7 @@ export default async function Page() {
             </div>
             <div>
               <h3>Schema</h3>
-              <SyntaxHighlight language="json">{JSON.stringify(pythonsampledata, null, 2)}</SyntaxHighlight>
+              <SyntaxHighlight language="json">{JSON.stringify([repo_metadata_example_element], null, 2)}</SyntaxHighlight>
             </div>
           </div>
         </div>

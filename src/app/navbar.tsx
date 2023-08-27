@@ -10,7 +10,7 @@ export default function NavBar() {
       </a>
 
       <a role={"button"} href="/website/projects" className="btn btn-ghost normal-case text-large">
-        All PyPI Projects
+        Search PyPI projects
       </a>
 
       <a role={"button"} href="/website/datasets" className="btn btn-ghost normal-case text-large">

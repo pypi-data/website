@@ -17,9 +17,15 @@ export default async function RepositoriesList() {
     <>
       <article className="prose lg:prose-md mb-3">
         <h1>Repositories</h1>
-        <p>Yo</p>
+        <div className="text-center">
+          <RepoStats data={data} />
+        </div>
+        <p>
+          Repositories are the top level of the PyPI data. Each repository contains one or more projects published to
+          PyPI. This page shows the list of repositories with the size and completion percent. Click on a repository to
+          view a list of packages contained within.
+        </p>
       </article>
-      <RepoStats data={data} />
 
       <table className="table table-sm table-fixed border-spacing-0">
         <thead>

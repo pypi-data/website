@@ -103,8 +103,12 @@ export default function ProjectsList() {
     <>
       <article className="prose lg:prose-md mb-3">
         <h1>
-          Projects List <small>{data.packages.length.toLocaleString()} projects</small>
+          Projects List
         </h1>
+        <p>
+          This is a list of all the projects that have been uploaded to PyPI. You can fuzzy-search for a project by name.
+          All searching is done client-side.
+        </p>
       </article>
       <form
         className="w-full"
@@ -115,7 +119,7 @@ export default function ProjectsList() {
         <div className="flex items-center w-full">
           <input
             type="text"
-            placeholder={`Search for a project. ${(randomName && "i.e " + randomName) || ""}`}
+            placeholder={`Search ${data.packages.length.toLocaleString()} projects. ${(randomName && "i.e " + randomName) || ""}`}
             className="input input-bordered w-full leading-tight"
             onChange={(e) => {
               setSearch(e.target.value);
