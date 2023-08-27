@@ -13,9 +13,10 @@ interface TableProps {
   data: Record<string, string | number>[];
   columns: Column[];
   initialLimit?: number;
+  addFooter?: boolean
 }
 
-export default function Table({ data, columns, initialLimit = 15 }: TableProps) {
+export default function Table({ data, columns, initialLimit = 15, addFooter = true }: TableProps) {
   const [expanded, setExpanded] = useState(false);
   // This is needed to stop a re-render loop? No idea why.
   const limitedData = useMemo(() => {
@@ -33,7 +34,7 @@ export default function Table({ data, columns, initialLimit = 15 }: TableProps) 
     columns: columns.map((column) => ({
       id: column.name,
       header: column.name.replace("_", " "),
-      footer: ({ table }) => {
+      footer: !addFooter ? undefined : ({ table }) => {
         if (column.name == columns[0].name) {
           return "Total";
         }

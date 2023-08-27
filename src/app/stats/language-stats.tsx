@@ -35,3 +35,33 @@ export type LanguageStats = {
   has_dict_comp: number;
   has_set_comp: number;
 };
+
+export type TotalLanguageStats = {
+  total: number;
+  has_async: number;
+  has_async_comp: number;
+
+  has_fstring: number;
+  has_annotations: number;
+
+  has_try_star: number;
+  has_match: number;
+  has_walrus: number;
+
+  has_dataclasses: number;
+
+  has_generator_expression: number;
+  has_list_comp: number;
+  has_dict_comp: number;
+  has_set_comp: number;
+};
+
+export async function getTotalLanguageStats(): Promise<TotalLanguageStats> {
+  const res = await fetch("https://raw.githubusercontent.com/pypi-data/data/main/stats/language_stats_totals.json");
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  const json_res = await res.json();
+  return json_res as TotalLanguageStats;
+}

@@ -9,7 +9,7 @@ import ShowSQL from "@/app/stats/sql";
 import extrapolate from "@/app/stats/shitpost-model";
 import ShitpostChart from "@/app/stats/shitpost-chart";
 import { cumulative_sum } from "@/app/stats/utils";
-import getLanguageStats from "@/app/stats/language-stats";
+import getLanguageStats, { getTotalLanguageStats } from "@/app/stats/language-stats";
 
 function InfoBubble({ text }: { text: string }) {
   return (
@@ -81,6 +81,9 @@ export default async function Page() {
   const languageStats = await getLanguageStats();
   const languageStatsByMonth = languageStats.sort((a, b) => (a.month < b.month ? -1 : 1));
 
+  const totalLanguageStats = await getTotalLanguageStats();
+  let totalLanguageCount = totalLanguageStats.total;
+
   return (
     <>
       <h1 className={"text-center text-6xl"}>The contents of PyPI, in numbers</h1>
@@ -93,30 +96,53 @@ export default async function Page() {
         This data only counts unique <strong>projects</strong>, not versions. e.g if a project has published 10 versions
         in a month, each containing an async function, it will only be counted once.
       </h4>
-      <ChartScroll
-        chartData={languageStatsByMonth}
-        charts={[
-          {
-            name: "Mature Features",
-            valueNames: ["total", "has_async", "has_fstring", "has_annotations", "has_dataclasses"],
-          },
-          {
-            name: "New Features",
-            valueNames: ["total", "has_try_star", "has_match", "has_walrus"],
-          },
-          {
-            name: "Comprehensions",
-            valueNames: [
-              "total",
-              "has_async_comp",
-              "has_list_comp",
-              "has_dict_comp",
-              "has_set_comp",
-              "has_generator_expression",
-            ],
-          },
-        ]}
-      />
+      <div className="grid grid-cols-3 gap-4">
+        <div className={"col-span-2"}>
+          <ChartScroll
+            chartData={languageStatsByMonth}
+            charts={[
+              {
+                name: "Mature Features",
+                valueNames: ["total", "has_async", "has_fstring", "has_annotations", "has_dataclasses"],
+              },
+              {
+                name: "New Features",
+                valueNames: ["total", "has_try_star", "has_match", "has_walrus"],
+              },
+              {
+                name: "Comprehensions",
+                valueNames: [
+                  "total",
+                  "has_async_comp",
+                  "has_list_comp",
+                  "has_dict_comp",
+                  "has_set_comp",
+                  "has_generator_expression",
+                ],
+              },
+            ]}
+          />
+        </div>
+        <div>
+          <h3 className={"mt-3"}>Breakdown</h3>
+          <Table
+            addFooter={false}
+            data={Object.entries(totalLanguageStats)
+              .filter(([key, _]) => key != "total")
+              .map(([key, value]) => {
+                const percent = Math.round((value / totalLanguageCount) * 100);
+                return {
+                  Name: key.replace("has_", "").replace("_", " "),
+                  Projects: value,
+                  Percent: percent,
+                };
+              })
+              .sort((a, b) => (a.Projects < b.Projects ? 1 : -1))}
+            columns={[{ name: "Name" }, { name: "Projects", type: "number" }, { name: "Percent", type: "number" }]}
+          />
+        </div>
+      </div>
+
       <div className="divider"></div>
       <h1 className={"text-center"}>Project Contents</h1>
       <h4 className={"text-center"}>
