@@ -24,7 +24,7 @@ function getInspectorLink(p: PackageWithIndex): string {
   return `https://inspector.pypi.io/project/${p.package.project_name}/${p.package.project_version}${url.pathname}`;
 }
 
-const ASSET_PATH = process.env.NEXT_PUBLIC_ASSET_PATH || "";
+const ASSET_PATH = (process.env.NEXT_PUBLIC_ASSET_PATH || '').replace('http://', 'https://');
 
 export default function ProjectInfo({ name }: { name: string }) {
   const first_char = Array.from(name)[0];
