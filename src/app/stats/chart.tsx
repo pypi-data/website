@@ -1,7 +1,8 @@
 "use client";
 import {
   CartesianGrid,
-  Cell, Customized,
+  Cell,
+  Customized,
   LabelList,
   Legend,
   Line,
@@ -11,7 +12,7 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis
+  YAxis,
 } from "recharts";
 import byteSize from "byte-size";
 import { cumulative_sum } from "@/app/stats/utils";
@@ -136,7 +137,7 @@ export function PieChart({
             {/*<LabelList className={"invisible md:visible"} dataKey={nameKey} position="outside" stroke={""} />*/}
           </Pie>
           <Tooltip />
-          <Legend/>
+          <Legend />
         </RechartPieChart>
       </ResponsiveContainer>
     </div>

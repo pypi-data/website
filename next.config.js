@@ -1,7 +1,7 @@
 const { join } = require("path");
 const { symlink, access, mkdir } = require("fs/promises");
-const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || '').replace('http://', 'https://');
-const assetPrefix = (process.env.NEXT_PUBLIC_ASSET_PATH || '').replace('http://', 'https://');;
+const basePath = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace("http://", "https://");
+const assetPrefix = (process.env.NEXT_PUBLIC_ASSET_PATH || "").replace("http://", "https://");
 
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],

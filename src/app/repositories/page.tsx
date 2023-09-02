@@ -51,7 +51,9 @@ export default async function RepositoriesList() {
                       {p.name}
                     </a>
                   </td>
-                  <td>{format(earliest, "dd/MM/yyyy")} to {format(latest, "dd/MM/yyyy")}</td>
+                  <td>
+                    {format(earliest, "dd/MM/yyyy")} to {format(latest, "dd/MM/yyyy")}
+                  </td>
                   <td className={"invisible md:visible"}>{differenceInDays(latest, earliest)}</td>
                   <td>{byteSize(p.size, { units: "iec", precision: 1 }).toString()}</td>
                   <td>{p.stats.total_packages}</td>

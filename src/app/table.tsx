@@ -13,7 +13,7 @@ interface TableProps {
   data: Record<string, string | number>[];
   columns: Column[];
   initialLimit?: number;
-  addFooter?: boolean
+  addFooter?: boolean;
 }
 
 export default function Table({ data, columns, initialLimit = 15, addFooter = true }: TableProps) {
@@ -34,19 +34,21 @@ export default function Table({ data, columns, initialLimit = 15, addFooter = tr
     columns: columns.map((column) => ({
       id: column.name,
       header: column.name.replace("_", " "),
-      footer: !addFooter ? undefined : ({ table }) => {
-        if (column.name == columns[0].name) {
-          return "Total";
-        }
-        if (column.type === "bytes" || column.type === "number") {
-          // @ts-ignore
-          const total = data.reduce((total, row) => total + row[column.name], 0);
-          if (column.type == "number") {
-            return total.toLocaleString();
-          }
-          return byteSize(total, { units: "iec", precision: 1 }).toString();
-        }
-      },
+      footer: !addFooter
+        ? undefined
+        : ({ table }) => {
+            if (column.name == columns[0].name) {
+              return "Total";
+            }
+            if (column.type === "bytes" || column.type === "number") {
+              // @ts-ignore
+              const total = data.reduce((total, row) => total + row[column.name], 0);
+              if (column.type == "number") {
+                return total.toLocaleString();
+              }
+              return byteSize(total, { units: "iec", precision: 1 }).toString();
+            }
+          },
       cell: (props) => {
         const row = props.getValue();
         if (column.type === undefined) {

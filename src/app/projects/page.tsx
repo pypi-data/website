@@ -7,7 +7,7 @@ import sampleSize from "lodash.samplesize";
 import useSWRImmutable from "swr/immutable";
 import FuseIndex = Fuse.FuseIndex;
 
-const ASSET_PATH = (process.env.NEXT_PUBLIC_ASSET_PATH || '').replace('http://', 'https://');
+const ASSET_PATH = (process.env.NEXT_PUBLIC_ASSET_PATH || "").replace("http://", "https://");
 
 export default function ProjectsList() {
   const router = useRouter();

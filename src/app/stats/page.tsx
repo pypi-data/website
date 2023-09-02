@@ -86,7 +86,7 @@ export default async function Page() {
 
   return (
     <>
-      <h1 className={"text-center text-6xl"}>The contents of PyPI, in numbers</h1>
+      <h1 className={"text-center text-4xl lg:text-6xl"}>The contents of PyPI, in numbers</h1>
       <div className="text-center">
         <TotalStats stats={data.total_stats[0]} lastMonth={lastMonth} />
       </div>
@@ -169,13 +169,13 @@ export default async function Page() {
       <div className="divider"></div>
       <h1 className={"text-center"}>Secrets Detected</h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className={"lg:col-span-2 text-center"}>
-            PyPI contains a lot of secrets.
-            <PieChart chartData={secretTypesTable} dataKey="count" nameKey="type" limit={10} />
-          </div>
-          <div>
-              <Table data={secretTypesTable} columns={[{name: "type"}, {name: "count", type: "number"}]}/>
-          </div>
+        <div className={"lg:col-span-2 text-center"}>
+          PyPI contains a lot of secrets.
+          <PieChart chartData={secretTypesTable} dataKey="count" nameKey="type" limit={10} />
+        </div>
+        <div>
+          <Table data={secretTypesTable} columns={[{ name: "type" }, { name: "count", type: "number" }]} />
+        </div>
       </div>
       <div className="divider"></div>
       <h1 className={"text-center"}>Growth</h1>
