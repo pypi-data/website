@@ -5,10 +5,7 @@ if [[ $# -eq 0 ]] ; then
     exit 1
 fi
 
-git init "$1"
-
 for url in $(curl https://raw.githubusercontent.com/pypi-data/data/main/links/repositories.txt); do
-    git -C "$1" remote add "$(basename "$url")" "$url" || true
+    git -C "$1" clone "$url" --depth=1 --no-checkout --branch=code
 done
 
-git -C "$1" fetch --multiple --jobs=4 --depth=1 --progress --all
