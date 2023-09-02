@@ -9,7 +9,7 @@ export default function RepoStats({ data }: { data: RepoData[] }) {
     .toLocaleString(undefined, { minimumFractionDigits: 0 });
   const total_size = data.reduce((acc, repo) => acc + repo.size, 0);
   return (
-    <div className="stats shadow">
+    <div className="stats-horizontal md:stats shadow">
       <div className="stat">
         <div className="stat-figure text-primary">
           <CodeBracketIcon className="inline-block w-8 h-8 stroke-current" />
