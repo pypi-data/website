@@ -102,7 +102,7 @@ export default function ShitpostChart({
         in only {years} years the number of packages will outnumber human beings.
       </h4>
       <div className="text-center">
-        <a onClick={() => setSeeExtrapolate(!seeExtrapolate)} className="btn btn-sm text-center">
+        <a onClick={() => setSeeExtrapolate(!seeExtrapolate)} className="btn btn-primary btn-sm text-center">
           {seeExtrapolate ? `Take me back! (Date: ${time})` : "Witness this inevitable future"}
         </a>
       </div>
