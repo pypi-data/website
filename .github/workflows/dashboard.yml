@@ -7,8 +7,6 @@ on:
   schedule:
     - cron: "0 10 * * *"
 
-concurrency: dashboard
-
 name: Build and deploy GH Pages
 jobs:
   build:
@@ -112,6 +110,7 @@ jobs:
 
   deploy:
     needs: build
+    concurrency: dashboard-publish
 
     permissions:
       pages: write
