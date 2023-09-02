@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <SWRProvider>
         <body className={inter.className}>
           <NavBar />
-          <div className="container mx-auto">
+          <div className="container mx-auto p-2">
             <Suspense fallback={<></>}>{children}</Suspense>
           </div>
           <div className="divider"></div>
