@@ -30,7 +30,7 @@ export default async function Home() {
             file can be analysed on a consumer-grade laptop in a few hours.
           </p>
           <p className={"text-lg text-center"}>
-            <a href={"/download"} role={"button"} className={"btn btn-primary btn-sm mr-3"}>
+            <a href={"/download"} role={"button"} className={"btn btn-primary btn-sm m-3"}>
               Download all the code
             </a>
             <a href={"/datasets"} role={"button"} className={"btn btn-primary btn-sm"}>

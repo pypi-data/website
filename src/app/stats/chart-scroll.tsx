@@ -29,7 +29,7 @@ export default function ChartScroll({
 
   return (
     <>
-      <div className="grid grid-flow-col grid-cols-min auto-rows-min text-center">
+      <div className="grid grid-cols-1 lg:grid-cols-3 text-center">
         {charts.map((chart, index) => {
           const isSelected = index === chartIndex;
           return (

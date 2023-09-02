@@ -96,8 +96,8 @@ export default async function Page() {
         This data only counts unique <strong>projects</strong>, not versions. e.g if a project has published 10 versions
         in a month, each containing an async function, it will only be counted once.
       </h4>
-      <div className="grid grid-cols-3 gap-4">
-        <div className={"col-span-2"}>
+      <div className="grid grid-cols-1 lg:grid-cols-3">
+        <div className={"lg:col-span-2"}>
           <ChartScroll
             chartData={languageStatsByMonth}
             charts={[
@@ -124,7 +124,7 @@ export default async function Page() {
           />
         </div>
         <div>
-          <h3 className={"mt-3"}>Breakdown</h3>
+          <h3 className={"mt-3 text-center"}>Breakdown</h3>
           <Table
             addFooter={false}
             data={Object.entries(totalLanguageStats)
@@ -167,16 +167,17 @@ export default async function Page() {
         ]}
       />
       <div className="divider"></div>
-      {/*<h1>Secrets Detected</h1>*/}
-      {/*<div className="grid grid-cols-2 gap-4">*/}
-      {/*    <div>*/}
-      {/*        To-Do: write something here.*/}
-      {/*    </div>*/}
-      {/*    <div>*/}
-      {/*        <Table data={secretTypesTable} columns={[{name: "type"}, {name: "count", type: "number"}]}/>*/}
-      {/*    </div>*/}
-      {/*</div>*/}
-      {/*<div className="divider"></div>*/}
+      <h1 className={"text-center"}>Secrets Detected</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className={"lg:col-span-2 text-center"}>
+            PyPI contains a lot of secrets.
+            <PieChart chartData={secretTypesTable} dataKey="count" nameKey="type" limit={10} />
+          </div>
+          <div>
+              <Table data={secretTypesTable} columns={[{name: "type"}, {name: "count", type: "number"}]}/>
+          </div>
+      </div>
+      <div className="divider"></div>
       <h1 className={"text-center"}>Growth</h1>
 
       {/*<div className="grid grid-cols-2 gap-4">*/}
@@ -192,9 +193,9 @@ export default async function Page() {
       {/*</div>*/}
       <div className="divider"></div>
       <h1 className={"text-center"}>Binary files</h1>
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className={"lg:col-span-2"}>
+          <p className={"text-center"}>
             This shows a breakdown of the binary files on PyPI, by extension. Binary files are the vast majority of the
             content on PyPI, accounting for nearly 75% of the uncompressed size.
           </p>
@@ -215,7 +216,7 @@ export default async function Page() {
         </div>
       </div>
       <div className="divider"></div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
           <h1 className={"text-center"}>Largest Projects by size</h1>
           <InfoBubble
@@ -251,8 +252,8 @@ export default async function Page() {
       </div>
       <div className="divider"></div>
       <h1 className={"text-center"}>Files not committed to Github</h1>
-      <div className="grid grid-cols-2 gap-4">
-        <div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className={"text-center"}>
           Not all files can be committed to GitHub due to size limits. Some have a few very, very long lines whilst
           others are junk like mistakenly added virtualenvs or VCS directories. This table shows a breakdown of the
           reasons why files where skipped.

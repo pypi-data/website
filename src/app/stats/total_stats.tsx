@@ -7,7 +7,7 @@ export default function TotalStats({ stats, lastMonth }: { stats: TotalStat; las
   const lines_per_second = lastMonth.total_lines / (total_hours_in_a_month * 60 * 60);
   return (
     <>
-      <div className="stats shadow">
+      <div className="stats-horizontal lg:stats shadow">
         <div className="stat">
           <div className="stat-figure text-primary">
             <CodeBracketIcon className="inline-block w-8 h-8 stroke-current" />
