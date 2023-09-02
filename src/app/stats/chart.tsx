@@ -136,7 +136,7 @@ export function PieChart({
             ))}
             {/*<LabelList className={"invisible md:visible"} dataKey={nameKey} position="outside" stroke={""} />*/}
           </Pie>
-          <Tooltip />
+          <Tooltip cursor={false} />
           <Legend />
         </RechartPieChart>
       </ResponsiveContainer>
