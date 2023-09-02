@@ -1,7 +1,7 @@
 "use client";
 import {
   CartesianGrid,
-  Cell,
+  Cell, Customized,
   LabelList,
   Legend,
   Line,
@@ -11,11 +11,11 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis,
+  YAxis
 } from "recharts";
 import byteSize from "byte-size";
 import { cumulative_sum } from "@/app/stats/utils";
-import {genColours} from "./colours";
+import { genColours } from "./colours";
 
 // const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#ff5100", "#FF8042"];
 
@@ -54,7 +54,7 @@ export function Chart({
   return (
     <>
       {showValueHeader && <h2 className={"text-center"}>{showValueHeader(chartData[chartData.length - 1])}</h2>}
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="90%" height={400}>
         <LineChart key={`${valueNames}`} data={chartData}>
           {valueNames.map((valueName, index) => {
             const name = valueName.replaceAll("_", " ");
@@ -96,40 +96,49 @@ export function Chart({
   );
 }
 
-export function PieChart({ chartData, dataKey, nameKey, limit }: { chartData: any[]; dataKey: string; nameKey: string, limit?: number }) {
+export function PieChart({
+  chartData,
+  dataKey,
+  nameKey,
+  limit,
+}: {
+  chartData: any[];
+  dataKey: string;
+  nameKey: string;
+  limit?: number;
+}) {
   if (limit) {
     let rest_total = chartData.slice(limit, chartData.length).reduce((acc, value) => acc + value[dataKey], 0);
     let rest_item = {
       [nameKey]: "Other",
       [dataKey]: rest_total,
-    }
+    };
     chartData = [...chartData.slice(0, limit), rest_item];
   }
 
   const colours = genColours(chartData.length);
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
-      <RechartPieChart>
-        <Pie
-          data={chartData}
-          nameKey={nameKey}
-          dataKey={dataKey}
-          isAnimationActive={false}
-          // outerRadius={120}
-          fill="#8884d8"
-        >
-          {chartData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={colours[index]} />
-          ))}
-          <LabelList dataKey={nameKey} position="outside" stroke={""} />
-        </Pie>
-      </RechartPieChart>
-      {/*<LineChart data={chartData}>*/}
-      {/*  <Line type="monotone" dataKey={valueName} stroke="#8884d8" dot={false}/>*/}
-      {/*  <XAxis dataKey="month"/>*/}
-      {/*  <YAxis/>*/}
-      {/*</LineChart>*/}
-    </ResponsiveContainer>
+    <div>
+      <ResponsiveContainer width="100%" height={400}>
+        <RechartPieChart>
+          <Pie
+            data={chartData}
+            nameKey={nameKey}
+            dataKey={dataKey}
+            isAnimationActive={false}
+            // outerRadius={120}
+            fill="#8884d8"
+          >
+            {chartData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={colours[index]} />
+            ))}
+            {/*<LabelList className={"invisible md:visible"} dataKey={nameKey} position="outside" stroke={""} />*/}
+          </Pie>
+          <Tooltip />
+          <Legend/>
+        </RechartPieChart>
+      </ResponsiveContainer>
+    </div>
   );
 }

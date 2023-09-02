@@ -24,7 +24,7 @@ function getInspectorLink(p: PackageWithIndex): string {
   return `https://inspector.pypi.io/project/${p.package.project_name}/${p.package.project_version}${url.pathname}`;
 }
 
-const ASSET_PATH = (process.env.NEXT_PUBLIC_ASSET_PATH || '').replace('http://', 'https://');
+const ASSET_PATH = (process.env.NEXT_PUBLIC_ASSET_PATH || "").replace("http://", "https://");
 
 export default function ProjectInfo({ name }: { name: string }) {
   const first_char = Array.from(name)[0];
@@ -59,27 +59,24 @@ export default function ProjectInfo({ name }: { name: string }) {
                   <td>{p.package.project_version}</td>
                   <td>{p.package_filename}</td>
                   <td>
-                    <button className="btn btn-info btn-xs">
-                      <a
-                        href={`https://github.com/pypi-data/pypi-mirror-${p.index}/tree/code/packages/${p.package.project_name}/${p.package_filename}`}
-                        target="_blank"
-                      >
-                        View Code
-                      </a>
-                    </button>
+                    <a
+                      className="btn btn-info btn-xs"
+                      href={`https://github.com/pypi-data/pypi-mirror-${p.index}/tree/code/packages/${p.package.project_name}/${p.package_filename}`}
+                      target="_blank"
+                    >
+                      View Code
+                    </a>
                   </td>
                   <td>
                     <Timestamp date={p.package.upload_time} />
                   </td>
                   <td>
-                    <button className="btn btn-outline btn-info btn-xs mr-1">
-                      <a href={p.package.url}>Download</a>
-                    </button>
-                    <button className="btn btn-outline btn-info btn-xs">
-                      <a href={getInspectorLink(p)} target="_blank">
-                        Inspector
-                      </a>
-                    </button>
+                    <a className="btn btn-outline btn-info btn-xs mr-1" href={p.package.url}>
+                      Download
+                    </a>
+                    <a className="btn btn-outline btn-info btn-xs" href={getInspectorLink(p)} target="_blank">
+                      Inspector
+                    </a>
                   </td>
                 </tr>
               );
