@@ -98,7 +98,7 @@ export default function ShitpostChart({
         </div>
       </div>
       <h4 className={"text-center font-bold mb-3"}>
-        PyPI is growing fast. If this dangerous expansion not stopped our advanced machine learning models predict that
+        PyPI is growing fast. If this dangerous expansion not stopped, our advanced machine learning models predict that
         in only {years} years the number of packages will outnumber human beings.
       </h4>
       <div className="text-center">
