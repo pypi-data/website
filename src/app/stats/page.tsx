@@ -250,32 +250,34 @@ export default async function Page() {
           <ShowSQL sqlData={data.sql.extension_stats} />
         </div>
       </div>
-      <div className="divider"></div>
-      <h1 className={"text-center"}>Files not committed to Github</h1>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className={"text-center"}>
-          Not all files can be committed to GitHub due to size limits. Some have a few very, very long lines whilst
-          others are junk like mistakenly added virtualenvs or VCS directories. This table shows a breakdown of the
-          reasons why files where skipped.
-        </div>
-        <div>
-          <Table
-            data={skip_reason_stats}
-            columns={[
-              { name: "skip_reason" },
-              { name: "count", type: "number" },
-              { name: "unique_files", type: "number" },
+      <span className={"hidden md:block"}>
+        <div className="divider"></div>
+        <h1 className={"text-center"}>Files not committed to Github</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className={"text-center"}>
+            Not all files can be committed to GitHub due to size limits. Some have a few very, very long lines whilst
+            others are junk like mistakenly added virtualenvs or VCS directories. This table shows a breakdown of the
+            reasons why files where skipped.
+          </div>
+          <div>
+            <Table
+              data={skip_reason_stats}
+              columns={[
+                { name: "skip_reason" },
+                { name: "count", type: "number" },
+                { name: "unique_files", type: "number" },
 
-              { name: "max_size", type: "bytes" },
-              { name: "max_lines", type: "number" },
-              { name: "total_size", type: "bytes" },
-              { name: "total_lines", type: "number" },
+                { name: "max_size", type: "bytes" },
+                { name: "max_lines", type: "number" },
+                { name: "total_size", type: "bytes" },
+                { name: "total_lines", type: "number" },
 
-              { name: "total_projects", type: "number" },
-            ]}
-          />
+                { name: "total_projects", type: "number" },
+              ]}
+            />
+          </div>
         </div>
-      </div>
+      </span>
     </>
   );
 }
