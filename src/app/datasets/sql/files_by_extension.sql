@@ -1,4 +1,4 @@
-select splitByChar('.', splitByChar('/', path)[-1])[-1] as extension,
+select arrayElement(splitByChar('.', arrayElement(splitByChar('/', path), -1)), -1) as extension,
        count(*)                                         as total_files,
        formatReadableSize(sum(size))                    as total_size
 from pypi
