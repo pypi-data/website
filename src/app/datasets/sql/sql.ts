@@ -5,7 +5,7 @@ import mostUnique from "raw-loader!./most_unique.sql";
 // @ts-ignore
 import overTime from "raw-loader!./python_files_over_time.sql";
 // @ts-ignore
-import recentFiles from "raw-loader!./recent_pyproject_files.sql";
+import filesByExt from "raw-loader!./files_by_extension.sql";
 // @ts-ignore
 import longestFiles from "raw-loader!./longest_files.sql";
 // @ts-ignore
@@ -16,7 +16,7 @@ const queries = [
   createExample("Longest files", longestFiles),
   createExample("Largest projects by unique files", mostUnique),
   createExample("Unique files over time", overTime),
-  createExample("Recent pyproject.toml files", recentFiles),
+  createExample("Sizes by extension", filesByExt),
 ];
 
 export default queries;
