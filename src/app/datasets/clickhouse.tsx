@@ -25,7 +25,7 @@ export default function ClickhouseView({
         height={"600px"}
         src={url}
       ></iframe>
-      <div className={"text-center"}>
+      <div className={"text-center pt-5"}>
         <a className={"btn btn-sm btn-primary"} href={url} target="_blank">Open in new tab</a>
       </div>
     </>

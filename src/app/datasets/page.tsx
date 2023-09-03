@@ -127,7 +127,14 @@ export default async function Page() {
 
   return (
     <>
-      <h1>Datasets</h1>
+      <h1 className={"text-center"}>Datasets</h1>
+      <div className="divider"></div>
+      <h2 className="text-center">Explore the data in your browser</h2>
+      <ClickhouseView queries={queries} />
+
+      <div className="divider"></div>
+
+      <h2 className="text-center">Download datasets locally</h2>
       <article className="prose">
         <p className={"mb-0"}>There are several datasets available for use:</p>
         <ol className={"mt-0"}>
@@ -151,22 +158,9 @@ export default async function Page() {
         </p>
       </article>
 
-      <div className="divider"></div>
-
       <div className="card rounded-box bg-base-100 shadow-2xl">
         <div className="card-body">
-          <h1 id="metadata" className="card-title">
-            Explore the data on Clickhouse
-          </h1>
-          <ClickhouseView queries={queries} />
-        </div>
-      </div>
-
-      <div className="divider"></div>
-
-      <div className="card rounded-box bg-base-100 shadow-2xl">
-        <div className="card-body">
-          <h1 id="metadata" className="card-title">
+          <h1 id="metadata" className="card-title text-center">
             Metadata about every file uploaded to PyPI
           </h1>
           <h3>About</h3>
@@ -265,7 +259,7 @@ export default async function Page() {
 
       <div className="card rounded-box bg-base-100 shadow-2xl">
         <div className="card-body">
-          <h1 id="sqlite-dump" className="card-title">
+          <h1 id="sqlite-dump" className="card-title text-center">
             SQLite dump of all PyPI metadata
           </h1>
           <h3>About</h3>
@@ -295,7 +289,7 @@ export default async function Page() {
 
       <div className="card rounded-box bg-base-100 shadow-2xl">
         <div className="card-body">
-          <h1 className="card-title" id="repositories">
+          <h1 className="card-title text-center" id="repositories">
             Repository Metadata
           </h1>
           <p>
@@ -325,7 +319,7 @@ export default async function Page() {
 
       <div className="card rounded-box bg-base-100 shadow-2xl">
         <div className="card-body">
-          <h1 className="card-title" id="unique-python-files">
+          <h1 className="card-title text-center" id="unique-python-files">
             Unique Python files
           </h1>
           <p>

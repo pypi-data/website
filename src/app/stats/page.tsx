@@ -91,6 +91,17 @@ export default async function Page() {
         <TotalStats stats={data.total_stats[0]} lastMonth={lastMonth} />
       </div>
       <div className="divider"></div>
+      <p className={"text-center"}>
+        This page contains a breakdown of the contents of PyPI from parsing the contents of packages. You can{" "}
+        <a className={"underline text-blue-600 hover:text-blue-800 visited:text-purple-600"} href={"/download"}>
+          download PyPI locally
+        </a>{" "}
+        to do your own analysis or run{" "}
+        <a className={"underline text-blue-600 hover:text-blue-800 visited:text-purple-600"} href={"/datasets"}>
+          SQL queries on the data in your browser
+        </a>
+      </p>
+      <div className="divider"></div>
       <h1 className={"text-center"}>Language Features</h1>
       <h4 className={"text-center"}>
         This data only counts unique <strong>projects</strong>, not versions. e.g if a project has published 10 versions
