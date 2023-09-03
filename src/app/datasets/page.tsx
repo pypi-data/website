@@ -3,6 +3,8 @@ import SyntaxHighlight from "@/app/datasets/syntax";
 import getStats from "@/app/stats/stats";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Table from "@/app/table";
+import ClickhouseView from "@/app/datasets/clickhouse";
+import queries from "@/app/datasets/sql/sql";
 
 const SQLITE_URL = "https://github.com/pypi-data/pypi-json-data/releases/download/latest/pypi-data.sqlite.gz";
 const DATASET_URL = "https://github.com/pypi-data/data/raw/main/links/dataset.txt";
@@ -148,6 +150,19 @@ export default async function Page() {
           the datasets below.
         </p>
       </article>
+
+      <div className="divider"></div>
+
+      <div className="card rounded-box bg-base-100 shadow-2xl">
+        <div className="card-body">
+          <h1 id="metadata" className="card-title">
+            Explore the data on Clickhouse
+          </h1>
+          <ClickhouseView queries={queries} />
+        </div>
+      </div>
+
+      <div className="divider"></div>
 
       <div className="card rounded-box bg-base-100 shadow-2xl">
         <div className="card-body">
