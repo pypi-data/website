@@ -17,7 +17,7 @@ export default async function RepositoryDetail({ params }: { params: { name: str
         <h1>{repo.name}</h1>
         <p>
           This repository contains {repo.stats.total_packages} packages published between{" "}
-          {format(earliest, "dd/MM/yyyy")}
+          {format(earliest, "dd/MM/yyyy")}{" "}
           and {format(latest, "dd/MM/yyyy")}. The compressed size of this repository is{" "}
           {byteSize(repo.size, { units: "iec", precision: 1 }).toString()}
         </p>
