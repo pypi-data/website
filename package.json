@@ -44,7 +44,7 @@
     "@types/byte-size": "^8.1.0",
     "@types/chroma-js": "^2.4.1",
     "@types/lodash.samplesize": "^4.2.7",
-    "@types/node": "^20.5.9",
+    "@types/node": "^20.6.3",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@types/react-syntax-highlighter": "^15.5.7",
