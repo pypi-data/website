@@ -66,7 +66,8 @@ jobs:
             --region=auto \
             --endpoint-url ${{secrets.R2_ENDPOINT}} \
             --content-encoding=gzip \
-            --only-show-errors
+            --only-show-errors \
+            --size-only
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_KEY }}
