@@ -9,9 +9,18 @@ on:
 
 name: Build and deploy GH Pages
 jobs:
-  copy-to-r2:
+  build:
     runs-on: ubuntu-latest
     steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          remove-dotnet: "true"
+          remove-android: "true"
+          remove-haskell: "true"
+          remove-codeql: "true"
+          remove-docker-images: "true"
+
       - name: checkout
         uses: actions/checkout@v4
 
@@ -20,132 +29,60 @@ jobs:
           node-version: "lts/*"
           cache: "npm"
 
-      - uses: robinraju/release-downloader@v1.8
-        with:
-          repository: "pypi-data/toolchain"
-          fileName: "pypi-data-toolchain.tar.gz"
-          extract: true
-          latest: true
-          out-file-path: "toolchain/"
-
-      - name: Generate token
-        id: generate_token
-        uses: pypi-data/github-app-token@v1
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
-
-      - name: Get current date
-        id: current-date
-        run: |
-          echo "date=$(date +%F)" >> "$GITHUB_OUTPUT"
-
-      - name: Restore cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            .cache/data.json
-          key: data-${{ steps.current-date.outputs.date }}
-
-      - env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-        name: Build data
-        run: |
-          mkdir -p ${{ github.workspace }}/.cache/
-
-          ${{ github.workspace }}/toolchain/pypi-data-toolchain static-site \
-            --content-directory ${{ github.workspace }}/public/data/ \
-            --reload-from ${{ github.workspace }}/.cache/data.json
+      - name: Setup Pages
+        id: setup-pages
+        uses: actions/configure-pages@v3
 
       - name: Install deps
         run: |
           npm install
 
-      - name: Build index
-        run: npm run build-index
-
-      - name: Sync to R2
-        run: |
-          aws s3 sync ${{ github.workspace }}/public/data/ s3://pypi-data/data/ --region=auto --endpoint-url ${{secrets.R2_ENDPOINT}} --no-progress
+      - name: Build site
+        run: npm run build -- --no-lint
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_KEY }}
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
+          NEXT_PUBLIC_ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
 
-#
-#  build:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Maximize build space
-#        uses: easimon/maximize-build-space@master
-#        with:
-#          remove-dotnet: "true"
-#          remove-android: "true"
-#          remove-haskell: "true"
-#          remove-codeql: "true"
-#          remove-docker-images: "true"
-#
-#      - name: checkout
-#        uses: actions/checkout@v4
-#
-#      - uses: actions/setup-node@v3
-#        with:
-#          node-version: "lts/*"
-#          cache: "npm"
-#
-#      - name: Setup Pages
-#        id: setup-pages
-#        uses: actions/configure-pages@v3
-#
-#      - name: Install deps
-#        run: |
-#          npm install
-#
-#      - name: Build site
-#        run: npm run build -- --no-lint
-#        env:
-#          NEXT_PUBLIC_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
-#          NEXT_PUBLIC_ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
-#
-#      - name: Create artifact
-#        run: |
-#          tar \
-#          --dereference --hard-dereference \
-#          --directory "$INPUT_PATH" \
-#          -cf "${{ github.workspace }}/artifact.tar" \
-#          --exclude=.git \
-#          --exclude=.github \
-#          .
-#        env:
-#          INPUT_PATH: ${{ github.workspace }}/out/
-#
-#      - name: Size
-#        run: du -hs ${{ github.workspace }}/artifact.tar
-#
-#      - name: Upload artifact
-#        uses: actions/upload-artifact@v3
-#        env:
-#          GZIP: "-9"
-#        with:
-#          name: github-pages
-#          path: ${{ github.workspace }}/artifact.tar
-#          retention-days: "1"
-#          if-no-files-found: error
-#
-#  deploy:
-#    needs: build
-#    concurrency: dashboard-publish
-#
-#    permissions:
-#      pages: write
-#      id-token: write
-#
-#    # Deploy to the github-pages environment
-#    environment:
-#      name: github-pages
-#      url: ${{ steps.deployment.outputs.page_url }}
-#
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Deploy to GitHub Pages
-#        id: deployment
-#        uses: actions/deploy-pages@v2
+      - name: Create artifact
+        run: |
+          tar \
+          --dereference --hard-dereference \
+          --directory "$INPUT_PATH" \
+          -cf "${{ github.workspace }}/artifact.tar" \
+          --exclude=.git \
+          --exclude=.github \
+          .
+        env:
+          INPUT_PATH: ${{ github.workspace }}/out/
+
+      - name: Size
+        run: du -hs ${{ github.workspace }}/artifact.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        env:
+          GZIP: "-9"
+        with:
+          name: github-pages
+          path: ${{ github.workspace }}/artifact.tar
+          retention-days: "1"
+          if-no-files-found: error
+
+  deploy:
+    needs: build
+    concurrency: dashboard-publish
+
+    permissions:
+      pages: write
+      id-token: write
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
