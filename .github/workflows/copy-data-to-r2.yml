@@ -62,6 +62,7 @@ jobs:
 
       - name: Sync to R2
         run: |
+          aws configure set s3.max_concurrent_requests 40
           aws s3 sync --size-only ${{ github.workspace }}/public/data/ s3://pypi-data/data/ \
             --region=auto \
             --endpoint-url ${{secrets.R2_ENDPOINT}} \
