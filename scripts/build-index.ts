@@ -1,5 +1,6 @@
 import Fuse from "fuse.js";
 import * as fs from "fs";
+import * as zlib from "zlib";
 
 const packageListData = fs.readFileSync(process.argv[2], "utf8");
 const packageList = JSON.parse(packageListData);
@@ -13,4 +14,5 @@ const index = {
   packages: packages,
 };
 console.log(process.argv[3], JSON.stringify(index).length);
-fs.writeFileSync(process.argv[3], JSON.stringify(index));
+const encoded = zlib.deflateSync(JSON.stringify(index), { level: 9 });
+fs.writeFileSync(process.argv[3], encoded);
