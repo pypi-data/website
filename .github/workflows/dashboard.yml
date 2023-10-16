@@ -57,6 +57,13 @@ jobs:
             --content-directory ${{ github.workspace }}/public/data/ \
             --reload-from ${{ github.workspace }}/.cache/data.json
 
+      - name: Install deps
+        run: |
+          npm install
+
+      - name: Build index
+        run: npm run build-index
+
       - name: Sync to R2
         run: |
           aws s3 sync ${{ github.workspace }}/public/data/ s3://pypi-data/data/ --region=auto --endpoint-url ${{secrets.R2_ENDPOINT}} --no-progress
@@ -64,13 +71,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_KEY }}
 
-
-      - name: Install deps
-        run: |
-          npm install
-
-      - name: Build index
-        run: npm run build-index
 #
 #  build:
 #    runs-on: ubuntu-latest
