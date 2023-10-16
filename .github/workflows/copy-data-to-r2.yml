@@ -62,7 +62,7 @@ jobs:
 
       - name: Sync to R2
         run: |
-          aws s3 sync ${{ github.workspace }}/public/data/ s3://pypi-data/data/ --region=auto --endpoint-url ${{secrets.R2_ENDPOINT}} --no-progress
+          aws s3 sync --size-only ${{ github.workspace }}/public/data/ s3://pypi-data/data/ --region=auto --endpoint-url ${{secrets.R2_ENDPOINT}} --no-progress
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_KEY }}
