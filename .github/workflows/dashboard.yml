@@ -34,30 +34,10 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
           NEXT_PUBLIC_ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
 
-      - name: Create artifact
-        run: |
-          tar \
-          --dereference --hard-dereference \
-          --directory "$INPUT_PATH" \
-          -cf "${{ github.workspace }}/artifact.tar" \
-          --exclude=.git \
-          --exclude=.github \
-          .
-        env:
-          INPUT_PATH: ${{ github.workspace }}/out/
-
-      - name: Size
-        run: du -hs ${{ github.workspace }}/artifact.tar
-
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        env:
-          GZIP: "-9"
+        uses: actions/upload-pages-artifact@v2
         with:
-          name: github-pages
-          path: ${{ github.workspace }}/artifact.tar
-          retention-days: "1"
-          if-no-files-found: error
+          path: ${{ github.workspace }}/out/
 
   deploy:
     needs: build
