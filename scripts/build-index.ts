@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as zlib from "zlib";
 
 const packageListData_raw = fs.readFileSync(process.argv[2], "utf8");
-const packageListData = zlib.unzipSync(JSON.stringify(packageListData_raw)).toString();
+const packageListData = zlib.unzipSync(packageListData_raw).toString();
 const packageList = JSON.parse(packageListData);
 
 // @ts-ignore
