@@ -41,7 +41,7 @@
     "use-debounce": "^9.0.4"
   },
   "devDependencies": {
-    "@types/byte-size": "^8.1.0",
+    "@types/byte-size": "^8.1.1",
     "@types/chroma-js": "^2.4.2",
     "@types/lodash.samplesize": "^4.2.7",
     "@types/node": "^20.8.7",
