@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
-    "@next/bundle-analyzer": "~13.5.6",
+    "@next/bundle-analyzer": "~14.0.1",
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-table": "^8.10.7",
     "byte-size": "^8.1.1",
