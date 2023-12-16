@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "postbuild": "next-sitemap",
     "build-index": "ts-node scripts/build-index.ts public/data/pages.json public/data/fuse-index.json",
     "postinstall": "wget https://raw.githubusercontent.com/pypi-data/data/main/stats/repositories_with_releases.json -O src/data/repositories_with_releases.json"
   },
@@ -28,6 +29,7 @@
     "human-format": "^1.2.0",
     "lodash.samplesize": "^4.2.0",
     "next": "~13.5.6",
+    "next-sitemap": "^4.2.3",
     "prql-js": "^0.9.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
