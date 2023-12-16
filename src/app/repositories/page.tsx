@@ -2,13 +2,8 @@ import byteSize from "byte-size";
 import parseIso from "date-fns/parseISO";
 import format from "date-fns/format";
 import differenceInDays from "date-fns/differenceInDays";
-import fs from "fs";
-import path from "path";
 import RepoStats from "@/app/repositories/repo-stats";
-
-const allRepoData = JSON.parse(
-  fs.readFileSync(path.join(process.cwd(), "src/data/repositories_with_releases.json"), "utf-8"),
-) as RepoData[];
+import { getData } from "@/utils";
 
 export default async function RepositoriesList() {
   const data = await getData();
@@ -83,14 +78,3 @@ export type RepoData = {
   projects: Map<string, number>;
 };
 
-export async function getData(): Promise<RepoData[]> {
-  return allRepoData as RepoData[];
-  // const res = await fetch('https://raw.githubusercontent.com/pypi-data/data/main/stats/repositories_with_releases.json')
-  //
-  // if (!res.ok) {
-  //   // This will activate the closest `error.js` Error Boundary
-  //   throw new Error('Failed to fetch data')
-  // }
-  //
-  // return res.json()
-}

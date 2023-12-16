@@ -1,7 +1,7 @@
-import { getData } from "@/app/repositories/page";
 import parseIso from "date-fns/parseISO";
 import format from "date-fns/format";
 import byteSize from "byte-size";
+import { getData } from "@/utils";
 
 export default async function RepositoryDetail({ params }: { params: { name: string } }) {
   const data = await getData();

@@ -1,11 +1,10 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import Fuse from "fuse.js";
+import {default as Fuse, FuseIndex} from "fuse.js";
 import { useDebounce } from "use-debounce";
 import sampleSize from "lodash.samplesize";
 import useSWRImmutable from "swr/immutable";
-import FuseIndex = Fuse.FuseIndex;
 
 const ASSET_PATH = "https://data.py-code.org" //(process.env.NEXT_PUBLIC_ASSET_PATH || "").replace("http://", "https://");
 
@@ -58,6 +57,7 @@ export default function ProjectsList() {
       console.time(`search ${debouncedSearch}`);
       let result = fuse.search(debouncedSearch, { limit: 50 });
       console.timeEnd(`search ${debouncedSearch}`);
+      // @ts-ignore
       return result.map(({ item }) => item);
     } else if (debouncedSearch.length == 0 && isClient) {
       // Select 10 random packages
@@ -148,7 +148,9 @@ export default function ProjectsList() {
             </tr>
           </thead>
           <tbody>
-            {searchResults.map((p) => {
+            {
+              // @ts-ignore
+              searchResults.map((p) => {
               return (
                 <tr key={p}>
                   <th>

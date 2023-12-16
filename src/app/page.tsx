@@ -1,7 +1,7 @@
 import TotalStats from "@/app/stats/total_stats";
 import getStats from "@/app/stats/stats";
-import { getData as getRepoData } from "@/app/repositories/page";
 import byteSize from "byte-size";
+import { getData as getRepoData } from "@/utils";
 
 export default async function Home() {
   const data = await getStats();

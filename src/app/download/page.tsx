@@ -1,13 +1,13 @@
-import { getData as getRepoData } from "@/app/repositories/page";
 import byteSize from "byte-size";
 import SyntaxHighlight from "@/app/datasets/syntax";
 // @ts-ignore
-import contents from "raw-loader!public/download.sh";
+import contents from "raw-loader!@public/download.sh";
 // @ts-ignore
 import example from "raw-loader!./example.sh";
 
 // @ts-ignore
 import example_2 from "raw-loader!./example_2.sh";
+import { getData as getRepoData } from "@/utils";
 
 export default async function Download() {
   const repoData = await getRepoData();
