@@ -34,6 +34,7 @@ jobs:
         run: |
           npm run build -- --no-lint
           cp public/sitemap*.xml out/
+          cp public/robots.txt out/
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
           NEXT_PUBLIC_ASSET_PATH: ${{ steps.setup-pages.outputs.base_url }}
