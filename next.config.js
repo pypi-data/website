@@ -7,7 +7,6 @@ const nextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   basePath,
   assetPrefix,
-  sitemapSize: 1000,
   // experimental: {
   //   mdxRs: true,
   // },
