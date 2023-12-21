@@ -46,9 +46,10 @@ export default function ProjectInfo({ name }: { name: string }) {
         />
       </Head>
       <article className="prose lg:prose-md mb-3">
-        <h1>Source code for PyPI Project: {project_info.name}</h1>
+        <h1>Source code for: {project_info.name}</h1>
         <p>
-          {project_info.name} has {project_info.packages_with_indexes.length} packages.
+          The PyPI project {project_info.name} has {project_info.packages_with_indexes.length} packages. Click the
+          links below to view the source code for these packages on GitHub.
         </p>
       </article>
       <div className="overflow-x-auto">
