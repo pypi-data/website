@@ -1,6 +1,5 @@
 import Fuse from "fuse.js";
 import * as fs from "fs";
-import * as zlib from "zlib";
 
 async function fetchData() {
   const response = await fetch("https://data.py-code.org/data/pages.json");
@@ -15,8 +14,8 @@ async function fetchData() {
     packages: packages,
   };
   console.log(process.argv[2], JSON.stringify(index).length);
-  const encoded = zlib.deflateSync(JSON.stringify(index), { level: 9 });
-  fs.writeFileSync(process.argv[2], encoded);
+  // const encoded = zlib.deflateSync(JSON.stringify(index), { level: 9 });
+  fs.writeFileSync(process.argv[2], JSON.stringify(index));
 }
 
 fetchData();
