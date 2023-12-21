@@ -1,7 +1,5 @@
 import byteSize from "byte-size";
-import parseIso from "date-fns/parseISO";
-import format from "date-fns/format";
-import differenceInDays from "date-fns/differenceInDays";
+import { parseISO, format, differenceInDays } from "date-fns";
 import RepoStats from "@/app/repositories/repo-stats";
 import { getData } from "@/utils";
 
@@ -37,8 +35,8 @@ export default async function RepositoriesList() {
           {data
             .sort((a, b) => b.index - a.index)
             .map((p) => {
-              const earliest = parseIso(p.stats.earliest_package);
-              const latest = parseIso(p.stats.latest_package);
+              const earliest = parseISO(p.stats.earliest_package);
+              const latest = parseISO(p.stats.latest_package);
               return (
                 <tr key={p.name}>
                   <td>

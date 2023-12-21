@@ -1,5 +1,4 @@
-import parseIso from "date-fns/parseISO";
-import format from "date-fns/format";
+import {parseISO, format} from "date-fns";
 import byteSize from "byte-size";
 import { getData } from "@/utils";
 
@@ -9,8 +8,8 @@ export default async function RepositoryDetail({ params }: { params: { name: str
   if (repo == undefined) {
     return <h1>Unknown repo</h1>;
   }
-  const earliest = parseIso(repo.stats.earliest_package);
-  const latest = parseIso(repo.stats.latest_package);
+  const earliest = parseISO(repo.stats.earliest_package);
+  const latest = parseISO(repo.stats.latest_package);
   return (
     <>
       <article className="prose lg:prose-md mb-3">
