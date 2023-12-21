@@ -6,7 +6,7 @@ import { useDebounce } from "use-debounce";
 import sampleSize from "lodash.samplesize";
 import useSWRImmutable from "swr/immutable";
 
-const ASSET_PATH = "https://data.py-code.org" //(process.env.NEXT_PUBLIC_ASSET_PATH || "").replace("http://", "https://");
+// const ASSET_PATH = "https://data.py-code.org" //(process.env.NEXT_PUBLIC_ASSET_PATH || "").replace("http://", "https://");
 
 export default function ProjectsList() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function ProjectsList() {
   const [debouncedSearch] = useDebounce(search, 500);
   const [isClient, setIsClient] = useState(false);
 
-  const { data, error, isLoading } = useSWRImmutable(`${ASSET_PATH}/data/fuse-index.json`);
+  const { data, error, isLoading } = useSWRImmutable(`/data/fuse-index.json`);
 
   const fuse = useMemo(() => {
     if (error || isLoading || data == null) {

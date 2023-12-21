@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap",
+    "postbuild": "next-sitemap && build-index",
     "build-index": "ts-node scripts/build-index.ts public/data/fuse-index.json",
     "postinstall": "wget https://raw.githubusercontent.com/pypi-data/data/main/stats/repositories_with_releases.json -O src/data/repositories_with_releases.json"
   },
