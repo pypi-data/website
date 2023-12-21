@@ -1,6 +1,7 @@
 "use client";
 import useSWRImmutable from "swr/immutable";
 import Timestamp from "react-timestamp";
+import Head from 'next/head';
 
 type PackageWithIndex = {
   index: number;
@@ -36,8 +37,16 @@ export default function ProjectInfo({ name }: { name: string }) {
   const project_info: ProjectInfo = data;
   return (
     <>
+      <Head>
+        <title>PyPI code for {name}</title>
+        <link
+          rel="canonical"
+          href={`https://py-code.org/projects/view?name=${name}`}
+          key="canonical"
+        />
+      </Head>
       <article className="prose lg:prose-md mb-3">
-        <h1>{project_info.name}</h1>
+        <h1>Source code for PyPI Project: {project_info.name}</h1>
         <p>
           {project_info.name} has {project_info.packages_with_indexes.length} packages.
         </p>
