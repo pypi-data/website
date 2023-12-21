@@ -4,6 +4,7 @@ const zlib = require('zlib');
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: 'https://py-code.org',
+  sitemapSize: 40000,
   generateIndexSitemap: true,
   generateRobotsTxt: true,
   additionalPaths: async (config) => {
