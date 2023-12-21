@@ -1,7 +1,7 @@
 "use client";
 import useSWRImmutable from "swr/immutable";
 import Timestamp from "react-timestamp";
-import Head from 'next/head';
+import { useEffect } from "react";
 
 type PackageWithIndex = {
   index: number;
@@ -26,30 +26,31 @@ function getInspectorLink(p: PackageWithIndex): string {
 }
 
 //const ASSET_PATH = (process.env.NEXT_PUBLIC_ASSET_PATH || "").replace("http://", "https://");
-const ASSET_PATH = "https://data.py-code.org"
+const ASSET_PATH = "https://data.py-code.org";
 
 export default function ProjectInfo({ name }: { name: string }) {
   const first_char = Array.from(name)[0];
   const { data, error, isLoading } = useSWRImmutable(`${ASSET_PATH}/data/packages/${first_char}/${name}.json`);
+  useEffect(() => {
+    if (!isLoading) {
+      document.title = `PyPI code for ${name}`;
+      const canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      canonical.href = `https://py-code.org/projects/view?name=${name}`;
+      document.head.appendChild(canonical);
+    }
+  }, [isLoading, name]);
   if (isLoading) {
     return <p>Loading</p>;
   }
   const project_info: ProjectInfo = data;
   return (
     <>
-      <Head>
-        <title>PyPI code for {name}</title>
-        <link
-          rel="canonical"
-          href={`https://py-code.org/projects/view?name=${name}`}
-          key="canonical"
-        />
-      </Head>
       <article className="prose lg:prose-md mb-3">
         <h1>Source code for: {project_info.name}</h1>
         <p>
-          The PyPI project {project_info.name} has {project_info.packages_with_indexes.length} packages. Click the
-          links below to view the source code for these packages on GitHub.
+          The PyPI project {project_info.name} has {project_info.packages_with_indexes.length} packages. Click the links
+          below to view the source code for these packages on GitHub.
         </p>
       </article>
       <div className="overflow-x-auto">
