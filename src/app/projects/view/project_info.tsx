@@ -47,9 +47,9 @@ export default function ProjectInfo({ name }: { name: string }) {
   return (
     <>
       <article className="prose lg:prose-md mb-3">
-        <h1>Source code for: {project_info.name}</h1>
+        <h1>Source code for {project_info.name}</h1>
         <p>
-          The PyPI project {project_info.name} has {project_info.packages_with_indexes.length} packages. Click the links
+          The PyPI project <code>{project_info.name}</code> has {project_info.packages_with_indexes.length} packages. Click the links
           below to view the source code for these packages on GitHub.
         </p>
       </article>
