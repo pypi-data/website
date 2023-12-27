@@ -102,6 +102,29 @@ export default async function Page() {
         </a>
       </p>
       <div className="divider"></div>
+      <h1 className={"text-center"}>Project Contents</h1>
+      <h4 className={"text-center"}>
+        This data only counts unique <strong>projects</strong>, not versions. e.g if a project has published 10 versions
+        in a month, each with a setup.py file, it will only be counted once.
+      </h4>
+      <ChartScroll
+        chartData={projectStats}
+        sqlData={data.sql.project_level_breakdowns}
+        charts={[
+          {
+            name: "Setup.py vs PyProject.toml",
+            valueNames: ["total_project_uploads", "has_setup_py", "has_pyproject", "has_requirements_txt"],
+          },
+          { name: "Markdown vs RST", valueNames: ["total_project_uploads", "has_markdown", "has_rst"] },
+          {
+            name: "Other Files",
+            valueNames: ["has_json", "has_ini", "has_xml", "has_toml", "has_yaml", "has_rust", "has_c_or_cpp"],
+          },
+          { name: "Typing?", valueNames: ["has_pyi", "has_py_typed"] },
+          //{name: "Test Runner", valueNames: ["has_tests", "has_pytest", "has_tox"]},
+        ]}
+      />
+      <div className="divider"></div>
       <h1 className={"text-center"}>Language Features</h1>
       <h4 className={"text-center"}>
         This data only counts unique <strong>projects</strong>, not versions. e.g if a project has published 10 versions
@@ -153,30 +176,6 @@ export default async function Page() {
           />
         </div>
       </div>
-
-      <div className="divider"></div>
-      <h1 className={"text-center"}>Project Contents</h1>
-      <h4 className={"text-center"}>
-        This data only counts unique <strong>projects</strong>, not versions. e.g if a project has published 10 versions
-        in a month, each with a setup.py file, it will only be counted once.
-      </h4>
-      <ChartScroll
-        chartData={projectStats}
-        sqlData={data.sql.project_level_breakdowns}
-        charts={[
-          {
-            name: "Setup.py vs PyProject.toml",
-            valueNames: ["total_project_uploads", "has_setup_py", "has_pyproject", "has_requirements_txt"],
-          },
-          { name: "Markdown vs RST", valueNames: ["total_project_uploads", "has_markdown", "has_rst"] },
-          {
-            name: "Other Files",
-            valueNames: ["has_json", "has_ini", "has_xml", "has_toml", "has_yaml", "has_rust", "has_c_or_cpp"],
-          },
-          { name: "Typing?", valueNames: ["has_pyi", "has_py_typed"] },
-          //{name: "Test Runner", valueNames: ["has_tests", "has_pytest", "has_tox"]},
-        ]}
-      />
       <div className="divider"></div>
       <h1 className={"text-center"}>Secrets Detected</h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
