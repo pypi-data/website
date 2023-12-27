@@ -36,3 +36,5 @@ next-env.d.ts
 
 .idea/
 public/data/
+public/sitemap*.xml
+public/robots.txt
