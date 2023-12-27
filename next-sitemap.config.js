@@ -15,7 +15,6 @@ module.exports = {
       loc: `https://py-code.org/projects/view?name=${pkg.toLowerCase()}`,
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date().toISOString(),
     }));
   },
 }
