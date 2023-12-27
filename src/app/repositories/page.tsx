@@ -40,7 +40,7 @@ export default async function RepositoriesList() {
               return (
                 <tr key={p.name}>
                   <td>
-                    <a href={`/repositories/${p.name}`} className="normal-case text-small">
+                    <a href={`/repositories/${p.name.toLowerCase()}`} className="normal-case text-small">
                       {p.name}
                     </a>
                   </td>

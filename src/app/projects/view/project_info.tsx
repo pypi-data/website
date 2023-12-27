@@ -44,13 +44,19 @@ export default function ProjectInfo({ name }: { name: string }) {
     return <p>Loading</p>;
   }
   const project_info: ProjectInfo = data;
+  if (data === undefined) {
+    return <article className="prose lg:prose-md mb-3">
+      <h1>Project not found: {name}</h1>
+      <p>The project with the name {name} cannot be found.</p>
+    </article>;
+  }
   return (
     <>
       <article className="prose lg:prose-md mb-3">
         <h1>Source code for {project_info.name}</h1>
         <p>
-          The PyPI project <code>{project_info.name}</code> has {project_info.packages_with_indexes.length} packages. Click the links
-          below to view the source code for these packages on GitHub.
+          The PyPI project <code>{project_info.name}</code> has {project_info.packages_with_indexes.length} packages.
+          Click the links below to view the source code for these packages on GitHub.
         </p>
       </article>
       <div className="overflow-x-auto">
