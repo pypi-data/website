@@ -43,7 +43,7 @@ export default async function RepositoryDetail({ params }: { params: { name: str
                   </td>
                 <td>
                   <a href={`${repo.packages_url}/${name}`} target="_blank">
-                    Browse Code
+                    Browse Code on GitHub
                   </a>
                 </td>
                 <td>
