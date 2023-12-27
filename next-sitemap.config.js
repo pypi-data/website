@@ -1,6 +1,3 @@
-const fs = require('fs');
-const zlib = require('zlib');
-
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: 'https://py-code.org',
