@@ -38,14 +38,16 @@ export default async function RepositoryDetail({ params }: { params: { name: str
             .sort(([, a], [, b]) => b - a)
             .map(([name, count]) => (
               <tr key={name}>
-                <td>{name}</td>
+                <td>
+                  <a href={`/projects/view?name=${name.toLowerCase()}`} className="normal-case text-small">{name}</a>
+                  </td>
                 <td>
                   <a href={`${repo.packages_url}/${name}`} target="_blank">
                     Browse Code
                   </a>
                 </td>
                 <td>
-                  <a href={`/projects/view?name=${name}`} className="normal-case text-small">
+                  <a href={`/projects/view?name=${name.toLowerCase()}`} className="normal-case text-small">
                     View all releases
                   </a>
                 </td>
