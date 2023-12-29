@@ -7,11 +7,10 @@ module.exports = {
   additionalPaths: async (config) => {
     const response = await fetch("https://data.py-code.org/data/pages.json")
     const packageList = await response.json();
+    const packages = packageList.packages.toSorted((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
-    return packageList.packages.map((pkg) => ({
+    return packages.map((pkg) => ({
       loc: `https://py-code.org/projects/view?name=${pkg.toLowerCase()}`,
-      changefreq: 'weekly',
-      priority: 0.7,
     }));
   },
 }
